@@ -1,6 +1,6 @@
 import type { CvData } from '#shared/schemas/cv';
 
-import { DOTFILES_INDEX, dotfilePath, projectPath } from './panel-target.ts';
+import { DOTFILES_INDEX, PROJECTS_INDEX, dotfilePath, projectPath } from './panel-target.ts';
 
 type IndexableContent = Pick<CvData, 'projects' | 'dotfiles'>;
 
@@ -11,6 +11,7 @@ type IndexableContent = Pick<CvData, 'projects' | 'dotfiles'>;
 export function indexableRoutes(cv: IndexableContent): string[] {
   return [
     '/',
+    PROJECTS_INDEX,
     ...cv.projects.map(project => projectPath(project.slug)),
     DOTFILES_INDEX,
     ...cv.dotfiles.map(dotfile => dotfilePath(dotfile.slug)),

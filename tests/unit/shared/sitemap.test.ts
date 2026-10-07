@@ -6,6 +6,7 @@ import { fixtureCv } from '~~/tests/unit/fixtures/cv';
 it('lists the home page, the projects and the dotfiles', () => {
   expect(indexableRoutes(fixtureCv)).toEqual([
     '/',
+    '/projects',
     '/projects/cue',
     '/projects/kitdev',
     '/dotfiles',

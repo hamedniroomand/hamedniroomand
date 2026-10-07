@@ -7,6 +7,7 @@ export const ProjectFrontmatter = z
   .object({
     name: z.string().min(1),
     order: z.number().int(),
+    home: z.boolean().optional(),
     repo: z
       .string()
       .regex(/^[\w.-]+\/[\w.-]+$/)

@@ -15,6 +15,11 @@ describe('ProjectFrontmatter', () => {
     expect(ProjectFrontmatter.parse(value)).toEqual(value);
   });
 
+  it('accepts a project marked for the home page', () => {
+    const value = { ...base, repo: 'hamedniroomand/cue', home: true };
+    expect(ProjectFrontmatter.parse(value)).toEqual(value);
+  });
+
   it('rejects an entry with neither repo nor site', () => {
     expect(() => ProjectFrontmatter.parse(base)).toThrow(/repo or site/);
   });

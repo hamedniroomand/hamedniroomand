@@ -49,6 +49,48 @@ const SHOTS: Shot[] = [
       await page.getByRole('heading', { level: 1 }).waitFor({ timeout: 15_000 });
     },
   },
+  {
+    file: 'edgefit-home.webp',
+    url: 'https://edgefit.kitdev.space/',
+    async prepare(page) {
+      await page.getByRole('heading', { level: 1 }).waitFor({ timeout: 15_000 });
+    },
+  },
+  {
+    file: 'edgefit-packages.webp',
+    url: 'https://edgefit.kitdev.space/packages/',
+    async prepare(page) {
+      const table = page.locator('table').first();
+      await table.waitFor({ timeout: 15_000 });
+      // The fixed header covers the top of the page, so the table starts a little below it.
+      await table.evaluate(element => {
+        element.scrollIntoView({ block: 'start' });
+        window.scrollBy(0, -120);
+      });
+    },
+  },
+  {
+    file: 'layerscope-devtools.webp',
+    url: 'https://layerscope.netlify.app/__layerscope/',
+    async prepare(page) {
+      await page.getByText('Hot files', { exact: true }).waitFor({ timeout: 15_000 });
+    },
+  },
+  {
+    file: 'masir-home.webp',
+    url: 'https://masir.dev/',
+    async prepare(page) {
+      await page.getByRole('heading', { level: 1 }).waitFor({ timeout: 15_000 });
+    },
+  },
+  {
+    file: 'masir-dashboard.webp',
+    url: 'https://masir.dev/',
+    async prepare(page) {
+      await page.getByText('Clicks per day', { exact: true }).waitFor({ timeout: 15_000 });
+      await page.evaluate(() => window.scrollBy(0, 420));
+    },
+  },
 ];
 
 const PLACEHOLDERS: Placeholder[] = [

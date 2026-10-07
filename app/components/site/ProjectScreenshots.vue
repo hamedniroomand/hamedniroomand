@@ -2,9 +2,13 @@
   import { linkLabel } from '#shared/cv/links';
   import type { Project } from '#shared/schemas/project';
 
-  const props = defineProps<{ project: Project }>();
+  const props = defineProps<{ project: Project; secondary?: boolean }>();
 
-  const screenshots = computed(() => props.project.screenshots ?? []);
+  const screenshots = computed(() =>
+    props.secondary
+      ? (props.project.screenshots?.slice(1) ?? [])
+      : (props.project.screenshots?.slice(0, 1) ?? []),
+  );
   /** The window title of a shot without its own: the site host, or the project name. */
   const frame = computed(() =>
     props.project.site ? linkLabel(props.project.site) : props.project.name,
@@ -13,9 +17,10 @@
 
 <template>
   <figure
-    v-for="shot in screenshots"
+    v-for="(shot, index) in screenshots"
     :key="shot.src"
     class="shot"
+    :style="!secondary && index === 0 ? projectViewStyle(project.slug) : undefined"
   >
     <div class="shot__frame">
       <div
@@ -30,7 +35,7 @@
         :alt="shot.alt"
         :width="shot.width"
         :height="shot.height"
-        loading="lazy"
+        :loading="secondary ? 'lazy' : 'eager'"
         decoding="async"
       />
     </div>

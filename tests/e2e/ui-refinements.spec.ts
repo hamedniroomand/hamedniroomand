@@ -23,3 +23,14 @@ test('section reveals respect reduced motion and never hide the content', async 
   expect(await section.evaluate(el => getComputedStyle(el).animationName)).toBe('none');
   expect(await section.evaluate(el => getComputedStyle(el).opacity)).toBe('1');
 });
+
+test('a section that waits for its reveal becomes visible when it enters the viewport', async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.goto('/');
+  const section = page.locator('#experience');
+  await section.scrollIntoViewIfNeeded();
+  await expect(section).toHaveClass(/section-revealed/);
+  await expect.poll(() => section.evaluate(el => getComputedStyle(el).opacity)).toBe('1');
+});

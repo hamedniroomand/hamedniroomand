@@ -20,6 +20,7 @@ const SLUG_PREFIXES: Partial<Record<PanelSection, string>> = {
 };
 
 export const DOTFILES_INDEX = '/dotfiles';
+export const PROJECTS_INDEX = '/projects';
 export const RESUME_PATH = '/cv';
 
 export function dotfilePath(slug: string): string {
@@ -27,7 +28,7 @@ export function dotfilePath(slug: string): string {
 }
 
 export function projectPath(slug: string): string {
-  return `/projects/${slug}`;
+  return `${PROJECTS_INDEX}/${slug}`;
 }
 
 export function panelTargetId(target: PanelTarget): string {

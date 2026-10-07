@@ -73,14 +73,19 @@
       <slot />
     </main>
     <SiteFooter />
-    <TerminalDock
-      v-if="terminalWindow.loaded.value"
-      v-show="terminalWindow.present.value"
-      ref="dock"
-      :mode="terminalWindow.mode.value"
-      @minimize="minimizeTerminal"
-      @toggle-maximize="toggleMaximize"
-      @close="closeTerminal"
-    />
+    <Transition
+      name="dock"
+      appear
+    >
+      <TerminalDock
+        v-if="terminalWindow.loaded.value"
+        v-show="terminalWindow.present.value"
+        ref="dock"
+        :mode="terminalWindow.mode.value"
+        @minimize="minimizeTerminal"
+        @toggle-maximize="toggleMaximize"
+        @close="closeTerminal"
+      />
+    </Transition>
   </div>
 </template>

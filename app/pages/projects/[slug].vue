@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { projectPath } from '#shared/cv/panel-target';
+  import { PROJECTS_INDEX, projectPath } from '#shared/cv/panel-target';
   import { projectSourceLabel } from '#shared/cv/project-actions';
   import { projectStory } from '#shared/public-site';
 
@@ -13,7 +13,7 @@
   const path = `~/projects/${project.slug}`;
   const crumbs = [
     { label: 'Home', to: '/' },
-    { label: 'Projects', to: '/#projects' },
+    { label: 'Projects', to: PROJECTS_INDEX },
     { label: project.name },
   ];
 
@@ -38,11 +38,16 @@
       <p class="project-page__headline">{{ story.headline }}</p>
       <ProjectActions :project="project" />
     </header>
-    <ProjectVisual :slug="project.slug" />
+    <ProjectVisual
+      v-if="!project.screenshots?.length"
+      :slug="project.slug"
+      :style="projectViewStyle(project.slug)"
+    />
     <ProjectScreenshots
       v-if="project.screenshots"
       :project="project"
     />
+    <JsonWorkbench v-if="project.slug === 'kitdev'" />
     <div class="project-page__body">
       <aside>
         <p class="eyebrow">BUILT WITH</p>
@@ -66,13 +71,18 @@
         </section>
       </div>
     </div>
+    <ProjectScreenshots
+      v-if="project.screenshots"
+      :project="project"
+      secondary
+    />
     <ProjectToolCatalog
       v-if="project.tools && project.site"
       :catalog="project.tools"
       :site-url="project.site"
     />
     <NuxtLink
-      to="/#projects"
+      :to="PROJECTS_INDEX"
       class="project-back"
       >← All projects <span>Back to projects</span></NuxtLink
     >

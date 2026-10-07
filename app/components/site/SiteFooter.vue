@@ -19,9 +19,9 @@
       <NuxtLink
         to="/"
         class="footer-name"
-        >Hamed Niroomand<span class="accent">.</span></NuxtLink
+        ><BrandMark />Hamed Niroomand</NuxtLink
       >
-      <p>A small corner of the internet. Made by hand, with curiosity.</p>
+      <p>A small corner of the internet, made by hand.</p>
     </div>
     <div class="footer-links">
       <a

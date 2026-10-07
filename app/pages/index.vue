@@ -1,8 +1,11 @@
 <script setup lang="ts">
   import { mailtoUrl } from '#shared/cv/links';
-  import { dotfilePath } from '#shared/cv/panel-target';
+  import { PROJECTS_INDEX, dotfilePath } from '#shared/cv/panel-target';
+  import { homeProjects } from '#shared/public-site';
 
   const { projects, dotfiles, experience, profile } = useCv();
+  const featured = projects.find(project => project.slug === 'cue');
+  const selected = homeProjects(projects);
   usePublicSeo(
     'Hamed Niroomand — Projects & experience',
     'Get to know Hamed Niroomand through his projects, professional experience, and everyday tools.',
@@ -15,15 +18,14 @@
       id="top"
       class="home-hero"
     >
-      <div class="hero-caption">
-        <span class="status-dot" /> PERSONAL WEBSITE
-        <span class="hero-caption__path">~/hamed</span>
-      </div>
-      <h1>Useful things.<br />Built with <span>curiosity.</span></h1>
+      <p class="hero-caption">Hamed Niroomand / a developer’s workshop</p>
+      <h1>
+        <span>Useful things.</span><br /><span>Built with <em>curiosity.</em></span>
+      </h1>
       <div class="hero-bottom">
         <p>
-          I’m Hamed. I make tools for the way I like to work.<br class="desktop-break" />
-          Here you’ll find my projects, experience, and a few things from my setup.
+          I’m Hamed. I build developer tools, explore signal processing, and work on software for
+          complex financial workflows. This is where I share what I make and how I work.
         </p>
         <a
           href="#projects"
@@ -31,11 +33,7 @@
           >Explore the work <span aria-hidden="true">↓</span></a
         >
       </div>
-      <span
-        class="hero-decoration"
-        aria-hidden="true"
-        >{<span>*</span>}</span
-      >
+      <BrandMark class="hero-decoration" />
     </section>
     <section
       id="projects"
@@ -44,14 +42,23 @@
     >
       <div class="section-heading">
         <div>
-          <p class="eyebrow">01 / THE WORK</p>
           <h2 id="projects-title">Selected projects</h2>
         </div>
-        <span class="section-aside">Small ideas, working software.</span>
+        <NuxtLink
+          :to="PROJECTS_INDEX"
+          class="text-link"
+          >See all {{ projects.length }} projects <span aria-hidden="true">→</span></NuxtLink
+        >
       </div>
+      <ProjectCard
+        v-if="featured"
+        :project="featured"
+        :index="0"
+        featured
+      />
       <div class="project-grid">
         <ProjectCard
-          v-for="(project, index) in projects"
+          v-for="(project, index) in selected"
           :key="project.slug"
           :project="project"
           :index="index"
@@ -65,10 +72,8 @@
     >
       <div class="section-heading">
         <div>
-          <p class="eyebrow">02 / THE ROAD HERE</p>
           <h2 id="work-title">Where I&rsquo;ve worked</h2>
         </div>
-        <span class="section-aside">Teams, products, and the years between.</span>
       </div>
       <WorkTimeline :experience="experience" />
     </section>
@@ -77,7 +82,7 @@
       aria-labelledby="setup-title"
     >
       <div class="setup-copy">
-        <p class="eyebrow">03 / BEHIND THE SCENES</p>
+        <p class="eyebrow">The everyday setup</p>
         <h2 id="setup-title">Make yourself<br />at <span class="mono">~</span> home.</h2>
         <p>
           The editor settings and small configurations that make a workspace feel like mine. Open a
@@ -90,9 +95,7 @@
         >
       </div>
       <div class="setup-files">
-        <div class="setup-files__bar">
-          <span class="status-dot" /> ~/.config <span>personal setup</span>
-        </div>
+        <div class="setup-files__bar">~/.config <span>personal setup</span></div>
         <NuxtLink
           v-for="dotfile in dotfiles.slice(0, 3)"
           :key="dotfile.slug"
@@ -111,7 +114,7 @@
       </div>
     </section>
     <section class="hello-section">
-      <p class="eyebrow">04 / KEEP IN TOUCH</p>
+      <p class="eyebrow">Keep in touch</p>
       <h2>Something in common?</h2>
       <div>
         <p>

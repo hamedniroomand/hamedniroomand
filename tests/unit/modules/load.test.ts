@@ -47,7 +47,15 @@ describe('loadContent', () => {
       'ai-tutor',
       'engineering-standards',
     ]);
-    expect(cv.projects.map(p => p.slug)).toEqual(['cpm', 'cue', 'waverune', 'kitdev']);
+    expect(cv.projects.map(p => p.slug)).toEqual([
+      'cue',
+      'edgefit',
+      'layerscope',
+      'kitdev',
+      'masir',
+      'waverune',
+      'cpm',
+    ]);
     expect(cv.projects[0]!.readmeSource).toBe('fallback');
     expect(cv.skills.categories.length).toBeGreaterThan(3);
     expect(cv.secrets.body).toContain('API contract');
@@ -74,7 +82,10 @@ describe('loadContent', () => {
     );
     expect(asked).toEqual([
       'hamedniroomand/cue',
+      'hamedniroomand/edgefit',
       'hamedniroomand/kitdev-space',
+      'hamedniroomand/nuxt-layerscope',
+      'hamedniroomand/masir',
       'hamedniroomand/waverune',
     ]);
     const kitdev = cv.projects.find(p => p.slug === 'kitdev')!;
@@ -100,7 +111,13 @@ describe('loadContent', () => {
         },
       }),
     );
-    expect(asked).toEqual(['hamedniroomand/cue', 'hamedniroomand/waverune']);
+    expect(asked).toEqual([
+      'hamedniroomand/cue',
+      'hamedniroomand/edgefit',
+      'hamedniroomand/nuxt-layerscope',
+      'hamedniroomand/masir',
+      'hamedniroomand/waverune',
+    ]);
     const kitdev = cv.projects.find(p => p.slug === 'kitdev')!;
     expect(kitdev.repo).toBeUndefined();
     expect(kitdev.readmeSource).toBe('fallback');
@@ -124,6 +141,7 @@ describe('loadContent', () => {
     expect(asked).toEqual([
       'https://thales-mfi.com',
       'https://kitdev.space',
+      'https://masir.dev',
       'https://hamedniroomand.github.io/waverune/',
     ]);
     const kitdev = cv.projects.find(p => p.slug === 'kitdev')!;

@@ -31,6 +31,7 @@ export function useSectionReveals(root: Ref<HTMLElement | null>): void {
       },
       { threshold: 0, rootMargin: '0px 0px -40px 0px' },
     );
+    root.value?.classList.add('reveals-ready');
     observe();
   });
   onBeforeUnmount(() => {

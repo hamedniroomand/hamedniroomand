@@ -23,7 +23,7 @@
 
 <template>
   <main class="error-page">
-    <p class="error-page__brand">hamed <span>/ niroomand.dev</span></p>
+    <p class="error-page__brand"><BrandMark />hamed <span>/ niroomand.dev</span></p>
     <div class="error-page__content">
       <p class="eyebrow">{{ error.statusCode }} / {{ copy.eyebrow }}</p>
       <h1>{{ copy.title }}</h1>
@@ -55,7 +55,14 @@
     overflow: hidden;
   }
   .error-page__brand {
-    font: 12px var(--font-mono);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font: var(--text-xs) var(--font-mono);
+  }
+  .error-page__brand .brand-mark {
+    width: 26px;
+    height: 26px;
   }
   .error-page__brand span {
     color: var(--fg-dim);
@@ -84,7 +91,7 @@
   }
   .error-page__code {
     position: absolute;
-    z-index: -1;
+    z-index: var(--z-decoration);
     right: 0;
     bottom: 0;
     font: clamp(150px, 30vw, 380px) var(--font-mono);

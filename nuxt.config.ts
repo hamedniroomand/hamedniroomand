@@ -2,12 +2,13 @@ import process from 'node:process';
 
 import { PDF_FILE } from './shared/pdf.ts';
 import { SPLIT_MAX, SPLIT_MIN, SPLIT_PANEL_KEY, SPLIT_RATIO_KEY } from './shared/split.ts';
-import { THEME_STORAGE_KEY } from './shared/theme.ts';
+import { CRT_EFFECTS_STORAGE_KEY, THEMES, THEME_STORAGE_KEY } from './shared/theme.ts';
 
 function prePaintScript(): string {
   return [
     '(function(){try{var d=document.documentElement,g=function(k){return localStorage.getItem(k)};',
-    `var t=g(${JSON.stringify(THEME_STORAGE_KEY)});if(t){d.dataset.theme=t}`,
+    `var t=g(${JSON.stringify(THEME_STORAGE_KEY)});if(${JSON.stringify(THEMES)}.includes(t)){d.dataset.theme=t}`,
+    `if(g(${JSON.stringify(CRT_EFFECTS_STORAGE_KEY)})==='off'){d.dataset.crtEffects='off'}`,
     `var s=Number(g(${JSON.stringify(SPLIT_RATIO_KEY)}));if(s>=${SPLIT_MIN}&&s<=${SPLIT_MAX}){d.style.setProperty('--split',String(s))}`,
     `if(g(${JSON.stringify(SPLIT_PANEL_KEY)})==='closed'){d.dataset.panel='closed'}`,
     '}catch(e){}})()',

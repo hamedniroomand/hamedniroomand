@@ -1,6 +1,6 @@
 ---
 name: Customer Portfolio Management
-order: 1
+order: 7
 site: https://thales-mfi.com
 tagline: Real-time customer portfolios across exchanges, brokers, and on-chain wallets.
 stack:

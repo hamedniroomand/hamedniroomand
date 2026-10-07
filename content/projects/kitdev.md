@@ -1,6 +1,7 @@
 ---
 name: KitDev Space
 order: 4
+home: true
 repo: hamedniroomand/kitdev-space
 site: https://kitdev.space
 tagline: Browser-based developer tools for data, crypto, color, network, image, and dev workflows.

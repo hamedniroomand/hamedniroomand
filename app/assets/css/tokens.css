@@ -2,14 +2,41 @@
   --font-mono:
     'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas,
     monospace;
-  --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-sans:
+    'Geist Variable', 'Geist', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue',
+    Arial, sans-serif;
 
+  /* Semantic roles inherit the active palette, including system mode. */
+  --surface-page: var(--bg);
+  --surface-raised: var(--bg-elev);
+  --surface-hover: var(--bg-hover);
+  --text-primary: var(--fg);
+  --text-muted: var(--fg-dim);
+  --border-subtle: var(--border);
+  --border-interactive: color-mix(in srgb, var(--accent) 60%, var(--border));
+  --focus-ring: var(--accent);
+
+  /* Mono labels, captions and meta lines. */
+  --text-3xs: 0.6875rem;
+  --text-2xs: 0.75rem;
   --text-xs: 0.75rem;
   --text-sm: 0.8125rem;
   --text-base: 0.9375rem;
+  --text-md: 1rem;
   --text-lg: 1.125rem;
   --text-xl: 1.5rem;
   --text-2xl: 2rem;
+
+  /* Display sizes grow with the screen. */
+  --display-sm: clamp(1.5rem, 1.2rem + 1vw, 1.75rem);
+  --display-md: clamp(1.875rem, 1.4rem + 1.6vw, 2.5rem);
+  --display-lg: clamp(2.75rem, 1.8rem + 4.6vw, 5rem);
+  --display-xl: clamp(2.875rem, 1.6rem + 5.6vw, 5.75rem);
+
+  /* Large type gets negative tracking. Small mono labels get positive tracking. */
+  --tracking-display: -0.045em;
+  --tracking-title: -0.025em;
+  --tracking-label: 0.09em;
 
   --space-1: 0.25rem;
   --space-2: 0.5rem;
@@ -18,14 +45,35 @@
   --space-6: 1.5rem;
   --space-8: 2rem;
   --space-12: 3rem;
+  --space-16: 4rem;
+  --space-section: clamp(2.5rem, 1.5rem + 4vw, 4.5rem);
 
+  --radius-sm: 4px;
   --radius: 6px;
+  --radius-md: 8px;
   --radius-lg: 10px;
+  --radius-xl: 12px;
   --divider-width: 8px;
   --panel-max-width: 44rem;
 
   --ease: cubic-bezier(0.2, 0, 0, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
+  --dur-fast: 160ms;
   --dur: 180ms;
+  --dur-enter: 360ms;
+  --dur-page: 320ms;
+  --stagger: 45ms;
+  --dur-theme: 360ms;
+
+  --z-backdrop: -4;
+  --z-glow: -3;
+  --z-decoration: -1;
+  --z-header: 30;
+  --z-dock: 40;
+  --z-popover: 50;
+  --z-skip: 100;
+  --z-overlay: 1000;
 
   /* The sticky header covers this much of the top of the screen. */
   --header-height: 92px;
@@ -49,8 +97,25 @@
     U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
+@font-face {
+  font-family: 'Geist Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url('@fontsource-variable/geist/files/geist-latin-wght-normal.woff2')
+    format('woff2-variations');
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 @media (prefers-reduced-motion: reduce) {
   :root {
+    --dur-fast: 0ms;
     --dur: 0ms;
+    --dur-enter: 0ms;
+    --dur-page: 0ms;
+    --dur-theme: 0ms;
+    --stagger: 0ms;
   }
 }

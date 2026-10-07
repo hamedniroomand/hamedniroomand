@@ -9,11 +9,28 @@ test('public home leads with projects and keeps the résumé off the default pat
   await expect(page.locator('#experience')).toBeVisible();
   await expect(page.locator('a[href="/cv"]')).toHaveCount(0);
   await expect(page.getByLabel('Terminal input')).toHaveCount(0);
-  await page.getByRole('link', { name: 'Explore Customer Portfolio Management' }).click();
+  await page.getByRole('link', { name: 'Explore edgefit' }).click();
+  await expect(page).toHaveURL(/\/projects\/edgefit$/);
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('edgefit.');
+});
+
+test('the home page shows a selection and links to the full project list', async ({ page }) => {
+  await page.goto('/');
+  const home = page.locator('#projects .project-card');
+  await expect(home).toHaveCount(5);
+  await expect(page.locator('#project-cpm')).toHaveCount(0);
+  await page.getByRole('link', { name: /See all \d+ projects/ }).click();
+  await expect(page).toHaveURL(/\/projects$/);
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('All projects.');
+  const cpm = page.locator('#project-cpm');
+  await expect(cpm).toBeVisible();
+  await cpm.getByRole('heading').getByRole('link').click();
   await expect(page).toHaveURL(/\/projects\/cpm$/);
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText(
-    'Customer Portfolio Management.',
-  );
+  await page
+    .getByRole('navigation', { name: 'Breadcrumb' })
+    .getByRole('link', { name: 'Projects' })
+    .click();
+  await expect(page).toHaveURL(/\/projects$/);
 });
 
 test('public terminal opens on demand and closes with focus restored', async ({ page }) => {
@@ -38,10 +55,14 @@ test('public terminal opens on demand and closes with focus restored', async ({ 
 test('public pages fit the viewport and connect to dotfiles', async ({ page }) => {
   for (const path of [
     '/',
+    '/projects',
     '/projects/cpm',
     '/projects/cue',
     '/projects/waverune',
     '/projects/kitdev',
+    '/projects/edgefit',
+    '/projects/layerscope',
+    '/projects/masir',
     '/dotfiles',
     '/dotfiles/vscode-settings',
   ]) {

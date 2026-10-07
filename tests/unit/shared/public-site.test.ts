@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vite-plus/test';
 
-import { projectStory } from '#shared/public-site';
+import { homeProjects, projectStory } from '#shared/public-site';
 
 describe('projectStory', () => {
   it('returns the written story for a known project', () => {
@@ -16,5 +16,12 @@ describe('projectStory', () => {
       introduction: 'A tool.',
       sections: [],
     });
+  });
+});
+
+describe('homeProjects', () => {
+  it('keeps only the projects marked for the home page, in their order', () => {
+    const projects = [{ slug: 'a', home: true }, { slug: 'b' }, { slug: 'c', home: true }];
+    expect(homeProjects(projects).map(project => project.slug)).toEqual(['a', 'c']);
   });
 });

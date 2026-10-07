@@ -3,6 +3,16 @@
   defineEmits<{ toggleTerminal: [] }>();
 
   const route = useRoute();
+  /** Each link is current on the pages under its section. The home page has no current link. */
+  const NAV = [
+    { to: '/projects', label: 'Projects', section: '/projects' },
+    { to: '/#experience', label: 'Experience', section: undefined },
+    { to: '/dotfiles', label: 'Dotfiles', section: '/dotfiles' },
+  ];
+
+  function isCurrent(section: string | undefined): boolean {
+    return section !== undefined && route.path.startsWith(section);
+  }
   const launcher = ref<{ focus: () => void } | null>(null);
 
   defineExpose({ focusTerminalButton: () => launcher.value?.focus() });
@@ -16,11 +26,7 @@
         class="site-brand"
         aria-label="Hamed Niroomand — Home"
       >
-        <span
-          class="site-brand__mark"
-          aria-hidden="true"
-          >h<span>.</span></span
-        >
+        <BrandMark />
         <span>hamed<span class="site-brand__domain"> / niroomand.dev</span></span>
       </NuxtLink>
       <nav
@@ -28,12 +34,12 @@
         class="site-nav"
       >
         <NuxtLink
-          to="/#projects"
-          :class="{ 'is-current': route.path.startsWith('/projects') }"
-          >Projects</NuxtLink
+          v-for="item in NAV"
+          :key="item.to"
+          :to="item.to"
+          :aria-current="isCurrent(item.section) ? 'page' : undefined"
+          >{{ item.label }}</NuxtLink
         >
-        <NuxtLink to="/#experience">Experience</NuxtLink>
-        <NuxtLink to="/dotfiles">Dotfiles</NuxtLink>
       </nav>
       <div class="site-controls">
         <ThemePicker />
