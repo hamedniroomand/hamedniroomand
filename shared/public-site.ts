@@ -6,6 +6,26 @@ export interface ProjectStory {
 }
 
 const STORIES: Record<string, ProjectStory> = {
+  'jack-westin': {
+    category: 'Client work / EdTech',
+    headline: 'Study tools behind 500K+ student accounts.',
+    introduction:
+      'For more than four years I worked on the frontend of Jack Westin, a US MCAT-prep platform, and led the frontend team for most of that time. A few of the products: practice exams, flashcards, an AI tutor, and the design system behind them. Most of them are free to try.',
+    sections: [
+      {
+        title: 'Practice that feels like the real test',
+        body: 'I built the spaced-repetition flashcards. On the practice exams, the MCAT books and the Chrome extension, which shows Jack Westin solutions next to the official AAMC practice material, I led the work and took the heavy tasks. The web apps use Vue 3 and Nuxt 4.',
+      },
+      {
+        title: 'An AI tutor inside the product',
+        body: 'I architected a chat tutor that streams its answers into the Nuxt interface with the AI SDK. KaTeX renders the formulas.',
+      },
+      {
+        title: 'One design system, four apps',
+        body: 'I architected a shared component and core-logic library, documented in Storybook with more than 95% test coverage and published as versioned npm packages. Micro-frontends bring the same components into the WordPress marketing site, so the marketing team does not rebuild them.',
+      },
+    ],
+  },
   cpm: {
     category: 'Client work / Asset management',
     headline: 'One book for every customer.',
@@ -67,7 +87,7 @@ const STORIES: Record<string, ProjectStory> = {
     ],
   },
   kitdev: {
-    category: 'Web app / Developer tools',
+    category: 'Open source / Developer tools',
     headline: 'The little tools you keep needing.',
     introduction:
       'A collection of focused utilities for the everyday work between bigger tasks. Format some JSON, inspect a color, convert an image, and get back to what you were building.',
@@ -148,9 +168,19 @@ const STORIES: Record<string, ProjectStory> = {
   },
 };
 
-/** The projects that the home page shows below the featured one. */
-export function homeProjects<T extends { home?: boolean }>(projects: readonly T[]): T[] {
-  return projects.filter(project => project.home);
+export interface ProjectGroupsResult<T> {
+  client: T[];
+  openSource: T[];
+}
+
+/** A project with a client is client work. The schema makes every other project open source. */
+export function projectGroups<T extends { client?: string }>(
+  projects: readonly T[],
+): ProjectGroupsResult<T> {
+  return {
+    client: projects.filter(project => project.client),
+    openSource: projects.filter(project => !project.client),
+  };
 }
 
 /** A project without a story falls back to its tagline. */

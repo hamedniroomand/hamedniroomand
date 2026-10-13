@@ -43,23 +43,34 @@ test('the home page goes hero, experience, projects, contact', async ({ page }) 
   await expect(page.getByRole('heading', { name: /Make yourself/ })).toHaveCount(0);
 });
 
-test('the home page shows a selection and links to the full project list', async ({ page }) => {
+test('the home page shows client work apart from open source', async ({ page }) => {
   await page.goto('/');
-  const home = page.locator('#projects .project-card');
-  await expect(home).toHaveCount(5);
-  await expect(page.locator('#project-cpm')).toHaveCount(0);
-  await page.getByRole('link', { name: /See all \d+ projects/ }).click();
-  await expect(page).toHaveURL(/\/projects$/);
+  const client = page.locator('section[aria-labelledby="client-work"] .project-card');
+  const open = page.locator('section[aria-labelledby="open-source"] .project-card');
+  await expect(client).toHaveCount(2);
+  await expect(client.first()).toHaveAttribute('id', 'project-jack-westin');
+  await expect(page.locator('#project-cpm')).toBeVisible();
+  await expect(open).toHaveCount(6);
+  await page.getByRole('link', { name: 'Explore Jack Westin' }).click();
+  await expect(page).toHaveURL(/\/projects\/jack-westin$/);
+  await expect(page.getByRole('link', { name: /Flashcards/ })).toHaveAttribute(
+    'href',
+    'https://jackwestin.com/flashcards/browse',
+  );
+  await expect(page.getByRole('link', { name: /Chrome extension/ })).toHaveAttribute(
+    'href',
+    /chromewebstore\.google\.com/,
+  );
+  await expect(page.getByText('Private source', { exact: true })).toBeVisible();
+});
+
+test('the projects page uses the same groups', async ({ page }) => {
+  await page.goto('/projects');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('All projects.');
-  const cpm = page.locator('#project-cpm');
-  await expect(cpm).toBeVisible();
-  await cpm.getByRole('heading').getByRole('link').click();
+  await expect(page.getByRole('heading', { level: 2, name: 'Client work' })).toBeVisible();
+  await expect(page.getByRole('heading', { level: 2, name: 'Open source' })).toBeVisible();
+  await page.locator('#project-cpm').getByRole('heading').getByRole('link').click();
   await expect(page).toHaveURL(/\/projects\/cpm$/);
-  await page
-    .getByRole('navigation', { name: 'Breadcrumb' })
-    .getByRole('link', { name: 'Projects' })
-    .click();
-  await expect(page).toHaveURL(/\/projects$/);
 });
 
 test('public terminal opens on demand and closes with focus restored', async ({ page }) => {
@@ -85,6 +96,7 @@ test('public pages fit the viewport and keep the main navigation', async ({ page
     '/',
     '/projects',
     '/projects/cpm',
+    '/projects/jack-westin',
     '/projects/cue',
     '/projects/waverune',
     '/projects/kitdev',
@@ -95,6 +107,17 @@ test('public pages fit the viewport and keep the main navigation', async ({ page
     '/dotfiles/vscode-settings',
   ]) {
     await page.goto(path);
+    // A visual hides its overflow, so clipped content never widens the page. Check the frame.
+    const clipped = await page.locator('.project-visual').evaluateAll(
+      frames =>
+        frames.filter(frame => {
+          const line = frame.querySelector('.visual-bottomline');
+          return (
+            line && line.getBoundingClientRect().bottom > frame.getBoundingClientRect().bottom + 1
+          );
+        }).length,
+    );
+    expect(clipped, path).toBe(0);
     expect(
       await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth),
     ).toBe(true);

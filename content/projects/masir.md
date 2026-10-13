@@ -1,7 +1,6 @@
 ---
 name: Masir
 order: 5
-home: true
 repo: hamedniroomand/masir
 site: https://masir.dev
 docs: https://docs.masir.dev

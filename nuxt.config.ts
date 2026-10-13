@@ -15,6 +15,19 @@ function prePaintScript(): string {
   ].join('');
 }
 
+const UMAMI_WEBSITE_ID = 'd9fa7c84-3b70-49bf-bc4b-60a370de1c18';
+
+/** A test build sets `CV_ANALYTICS=off`, so browser tests send no visits to the real stats. */
+function analyticsScripts(): Record<string, string | boolean>[] {
+  if (process.env.CV_ANALYTICS === 'off') return [];
+  return ['script.js', 'recorder.js'].map(file => ({
+    src: `https://umami.niroomand.dev/${file}`,
+    defer: true,
+    'data-website-id': UMAMI_WEBSITE_ID,
+    tagPosition: 'head',
+  }));
+}
+
 function nitroPreset(): string {
   return process.env.NITRO_PRESET ?? (process.env.VERCEL ? 'vercel' : 'bun');
 }
@@ -90,21 +103,7 @@ export default defineNuxtConfig({
         { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
         { rel: 'manifest', href: '/site.webmanifest' },
       ],
-      script: [
-        { innerHTML: prePaintScript(), tagPosition: 'head' },
-        {
-          src: 'https://umami.niroomand.dev/script.js',
-          defer: true,
-          'data-website-id': 'd9fa7c84-3b70-49bf-bc4b-60a370de1c18',
-          tagPosition: 'head',
-        },
-        {
-          src: 'https://umami.niroomand.dev/recorder.js',
-          defer: true,
-          'data-website-id': 'd9fa7c84-3b70-49bf-bc4b-60a370de1c18',
-          tagPosition: 'head',
-        },
-      ],
+      script: [{ innerHTML: prePaintScript(), tagPosition: 'head' }, ...analyticsScripts()],
     },
   },
 });

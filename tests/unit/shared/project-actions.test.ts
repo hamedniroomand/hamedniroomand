@@ -49,3 +49,19 @@ it('calls a repository Open source and a site-only project Private source', () =
   expect(projectSourceLabel({ repo: 'me/cue' })).toBe('Open source');
   expect(projectSourceLabel({ site: 'https://thales-mfi.com' })).toBe('Private source');
 });
+
+it('puts live links after the site and before the source', () => {
+  const actions = projectActions({
+    name: 'Acme',
+    site: 'https://acme.test',
+    live: [
+      { label: 'Flashcards', url: 'https://acme.test/cards' },
+      { label: 'Exams', url: 'https://acme.test/exams' },
+    ],
+  });
+  expect(actions.map(action => [action.kind, action.label, action.variant])).toEqual([
+    ['site', 'Visit Acme', 'primary'],
+    ['live', 'Flashcards', 'secondary'],
+    ['live', 'Exams', 'secondary'],
+  ]);
+});

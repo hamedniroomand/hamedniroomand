@@ -128,9 +128,9 @@ export default defineConfig({
     tasks: {
       'build:e2e': {
         command:
-          'NUXT_PUBLIC_SITE_URL=http://localhost:3457 NUXT_PUBLIC_TURNSTILE_SITE_KEY=1x00000000000000000000AA bun --bun nuxt build',
+          'CV_ANALYTICS=off NUXT_PUBLIC_SITE_URL=http://localhost:3457 NUXT_PUBLIC_TURNSTILE_SITE_KEY=1x00000000000000000000AA bun --bun nuxt build',
         cache: {
-          env: ['NUXT_PUBLIC_SITE_URL', 'NUXT_PUBLIC_TURNSTILE_SITE_KEY'],
+          env: ['CV_ANALYTICS', 'NUXT_PUBLIC_SITE_URL', 'NUXT_PUBLIC_TURNSTILE_SITE_KEY'],
         },
       },
       'test:e2e': {

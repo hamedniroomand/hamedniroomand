@@ -48,6 +48,7 @@ describe('loadContent', () => {
       'engineering-standards',
     ]);
     expect(cv.projects.map(p => p.slug)).toEqual([
+      'jack-westin',
       'cue',
       'edgefit',
       'layerscope',
@@ -95,11 +96,23 @@ describe('loadContent', () => {
     expect(kitdev.html).toContain('<p>');
   });
 
+  it('rejects a client that matches no experience entry', async () => {
+    const tmp = await contentCopy();
+    await writeFile(
+      join(tmp, 'projects', 'kitdev.md'),
+      '---\nname: KitDev Space\norder: 3\nclient: nobody\nsite: https://kitdev.space\ntagline: Tools.\nstack: []\n---\n',
+    );
+    await expect(loadContent(tmp, deps())).rejects.toThrow(
+      /client "nobody" matches no experience entry/,
+    );
+    await rm(tmp, { recursive: true, force: true });
+  });
+
   it('skips the README fetch for a project that has no repo', async () => {
     const tmp = await contentCopy();
     await writeFile(
       join(tmp, 'projects', 'kitdev.md'),
-      '---\nname: KitDev Space\norder: 3\nsite: https://kitdev.space\ntagline: Tools.\nstack: []\n---\n\nLocal body.\n',
+      '---\nname: KitDev Space\norder: 3\nclient: thales\nsite: https://kitdev.space\ntagline: Tools.\nstack: []\n---\n\nLocal body.\n',
     );
     const asked: string[] = [];
     const cv = await loadContent(
@@ -137,9 +150,8 @@ describe('loadContent', () => {
         },
       }),
     );
-    // Only the projects with a site are asked, in file order.
+    // Only the own projects with a site are asked, in file order. Client sites are not.
     expect(asked).toEqual([
-      'https://thales-mfi.com',
       'https://kitdev.space',
       'https://masir.dev',
       'https://hamedniroomand.github.io/waverune/',
