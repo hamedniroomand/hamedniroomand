@@ -10,10 +10,9 @@ it('spans every role in one range and keeps the authored order', () => {
   expect(globex!.range).toBe('May 2019 – Jul 2021');
 });
 
-it('never exposes a role title on the public timeline', () => {
-  const text = JSON.stringify(publicExperience(fixtureCv.experience));
-  expect(text).not.toContain('Team Lead');
-  expect(text).not.toContain('Senior Developer');
+it('lists the role titles, newest first', () => {
+  const [acme] = publicExperience(fixtureCv.experience);
+  expect(acme!.roles).toEqual(['Team Lead', 'Senior Developer']);
 });
 
 it('reports an open-ended role as present', () => {

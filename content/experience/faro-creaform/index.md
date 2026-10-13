@@ -4,7 +4,7 @@ url: https://www.faro.com
 location: Germany (remote)
 type: part-time
 roles:
-  - title: Full-stack Engineer
+  - title: Software Engineer
     start: 2021-08
     end: 2022-01
 stack:

@@ -535,7 +535,7 @@
   font-size: var(--text-base);
   color: var(--fg-dim);
 }
-/* The work history. Each row gives a company and the dates, but not the role title. */
+/* The work history. */
 .work-section {
   max-width: calc(var(--page-width) + 2 * var(--page-gutter));
   padding: var(--space-section) 0 calc(var(--space-section) + 12px);
@@ -615,6 +615,29 @@
   line-height: 1.6;
   text-transform: uppercase;
   letter-spacing: var(--tracking-label);
+}
+.work-row__roles {
+  margin: 4px 0 0;
+  color: var(--fg);
+  font-size: var(--text-sm);
+}
+.work-row__links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 16px;
+  margin: 16px 0 0;
+  font-size: var(--text-sm);
+}
+.work-row__links a {
+  color: var(--fg);
+}
+.work-row__links a:hover {
+  color: var(--accent);
+}
+.work-row__try {
+  color: var(--fg-dim);
+  font: var(--text-2xs) var(--font-mono);
 }
 .work-row__summary {
   margin: 12px 0 0;

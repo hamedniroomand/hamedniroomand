@@ -19,7 +19,10 @@
           <h2 id="work-title">Where I&rsquo;ve worked</h2>
         </div>
       </div>
-      <WorkTimeline :experience="experience" />
+      <WorkTimeline
+        :experience="experience"
+        :projects="projects"
+      />
     </section>
     <section
       id="projects"

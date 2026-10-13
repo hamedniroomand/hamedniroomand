@@ -14,8 +14,9 @@ Live site: <https://niroomand.dev>
 - `/cv` — the full résumé and original split terminal experience. The main navigation links to it.
   It is marked `noindex`. The home page links the PDF, and `/api/cv` is available by direct URL.
 
-The work history on the home page gives the company, the place, the dates and one line each.
-Skills and education stay on `/cv`.
+The work history on the home page gives the company, the role titles, the dates and one line each.
+A company with client work links its case study and its live products. Skills and education stay
+on `/cv`.
 
 The public terminal loads only when opened. Try `ls projects`, `ls experience`, `dotfiles`, or
 `menu`. It has a public filesystem and command selection; career commands belong to the résumé

@@ -112,13 +112,14 @@ function privateEntries(cv: CvData, mtime: string): FsNode[] {
   ];
 }
 
-/** The public entries give no role titles, no highlights and no panel targets. */
+/** The public entries give no highlights and no panel targets. */
 function publicEntries(cv: CvData, mtime: string): FsNode[] {
   const experience = publicExperience(cv.experience).map(entry =>
     file(
       `${entry.slug}.md`,
       [
         `# ${entry.company}`,
+        `Roles: ${entry.roles.join(' · ')}`,
         entry.range,
         `Location: ${entry.location} · ${entry.type}`,
         `Stack: ${entry.stack.join(', ')}`,

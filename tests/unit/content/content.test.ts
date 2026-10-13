@@ -15,6 +15,14 @@ const deps: LoadDeps = {
 };
 
 describe('content rules', () => {
+  it('keeps Team Lead and Full-stack out of the headline texts', async () => {
+    const cv = await loadContent(dir, deps);
+    const headline = [cv.profile.title, cv.profile.description, cv.about.body].join('\n');
+    expect(headline).not.toContain('Team Lead');
+    const titles = cv.experience.flatMap(entry => entry.roles.map(role => role.title));
+    expect(titles.join('\n')).not.toMatch(/full[- ]stack/i);
+  });
+
   it('has no design-pattern name-dropping in highlights', async () => {
     const cv = await loadContent(dir, deps);
     const text = cv.experience
