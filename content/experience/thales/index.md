@@ -4,7 +4,7 @@ url: https://thales-mfi.com
 location: Germany (remote)
 type: part-time
 roles:
-  - title: Technical Consultant & Full-stack Engineer
+  - title: Technical Consultant & Software Engineer
     start: 2024-01
     end: 2026-04
 stack:
