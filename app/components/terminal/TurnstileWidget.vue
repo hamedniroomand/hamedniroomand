@@ -1,9 +1,11 @@
 <script setup lang="ts">
   const props = defineProps<{ siteKey: string }>();
   const token = defineModel<string>({ default: '' });
+  const emit = defineEmits<{ failed: [value: boolean] }>();
 
   const el = ref<HTMLElement | null>(null);
-  const { reset } = useTurnstile(el, props.siteKey, token);
+  const { reset, failed } = useTurnstile(el, props.siteKey, token);
+  watch(failed, value => emit('failed', value));
 
   defineExpose({ reset });
 </script>
