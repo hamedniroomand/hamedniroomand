@@ -26,34 +26,34 @@
     "screenshots": "bun run scripts/build-screenshots.ts"
   },
   "dependencies": {
-    "marked": "^18.1.0",
-    "nuxt": "npm:nuxt-nightly@5.0.0-2610062145-85b8d54",
-    "vue": "^3.5.43",
+    "marked": "^18.1.1",
+    "nuxt": "npm:nuxt-nightly@5.0.0-2610121226-564ff79",
+    "vue": "^3.5.44",
     "vue-router": "^5.4.0",
-    "zod": "^4.6.5"
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@commitlint/cli": "^21.2.3",
     "@commitlint/config-conventional": "^21.2.3",
     "@fontsource-variable/geist": "^5.3.0",
     "@fontsource-variable/jetbrains-mono": "^5.3.0",
-    "@playwright/test": "^1.63.0",
-    "@types/bun": "^1.4.2",
-    "@vitest/coverage-v8": "5.0.3",
+    "@playwright/test": "^1.64.0",
+    "@types/bun": "^1.4.3",
+    "@vitest/coverage-v8": "5.0.4",
     "h3": "2.0.2",
     "rangi": "2.2.0",
     "typescript": "^6",
     "vite": "npm:@voidzero-dev/vite-plus-core@1.1.0",
     "vite-plus": "1.1.0",
-    "vitest": "5.0.3",
-    "vue-tsc": "^3.3.12"
+    "vitest": "5.0.4",
+    "vue-tsc": "^3.3.13"
   },
   "overrides": {
     "vite": "npm:@voidzero-dev/vite-plus-core@1.1.0",
-    "vitest": "5.0.3"
+    "vitest": "5.0.4"
   },
   "engines": {
     "bun": ">=1.4"
   },
-  "packageManager": "bun@1.4.2"
+  "packageManager": "bun@1.4.3"
 }
