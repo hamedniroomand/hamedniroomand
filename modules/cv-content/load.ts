@@ -17,6 +17,7 @@ import { ProjectFrontmatter } from '#shared/schemas/project';
 import { SkillsSchema } from '#shared/schemas/skills';
 
 import { loadDotfiles } from './dotfiles.ts';
+import { ContentError } from './errors.ts';
 import type { GistFetcher } from './github.ts';
 import type { Highlighter } from './highlight.ts';
 import {
@@ -85,8 +86,9 @@ async function loadProjects(
     const { data, body } = await readMarkdown(file);
     const frontmatter = validate(ProjectFrontmatter, data, file);
     const remote = frontmatter.repo ? await fetchReadme(frontmatter.repo) : null;
-    // A site that publishes `llms.txt` also publishes its list of tools.
-    const llms = frontmatter.site ? await fetchLlms(frontmatter.site) : null;
+    // An own product site that publishes `llms.txt` also publishes its list of tools.
+    // A client site belongs to the client, so the build does not read it.
+    const llms = frontmatter.site && !frontmatter.client ? await fetchLlms(frontmatter.site) : null;
     const tools = llms ? parseToolCatalog(llms) : undefined;
     projects.push({
       ...frontmatter,
@@ -97,6 +99,22 @@ async function loadProjects(
     });
   }
   return projects.sort(byOrder);
+}
+
+function checkClients(
+  dir: string,
+  projects: readonly Project[],
+  experience: readonly Experience[],
+): void {
+  const companies = experience.map(entry => entry.slug);
+  for (const project of projects) {
+    if (project.client && !companies.includes(project.client)) {
+      throw new ContentError(
+        join(dir, `${project.slug}.md`),
+        `client "${project.client}" matches no experience entry (${companies.join(', ')})`,
+      );
+    }
+  }
 }
 
 async function loadEducation(file: string): Promise<Education> {
@@ -118,12 +136,15 @@ export async function loadContent(
   const skills = await loadJson(SkillsSchema, at('skills.json'));
   const about = await readMarkdown(at('about.md'));
   const secrets = await readMarkdown(at('secrets.md'));
+  const experience = await loadExperience(at('experience'));
+  const projects = await loadProjects(at('projects'), deps.fetchReadme, deps.fetchLlms);
+  checkClients(at('projects'), projects, experience);
 
   const data: CvData = {
     profile,
     about: rendered(about.body),
-    experience: await loadExperience(at('experience')),
-    projects: await loadProjects(at('projects'), deps.fetchReadme, deps.fetchLlms),
+    experience,
+    projects,
     dotfiles: await loadDotfiles(at('dotfiles'), profile.links.github, deps),
     skills,
     education: await loadEducation(at('education.md')),

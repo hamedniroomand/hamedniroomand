@@ -6,7 +6,7 @@
 
   usePublicSeo(
     `Projects — ${profile.name}`,
-    `Open source tools, web apps and client work by ${profile.name}.`,
+    `Client work, open source tools and web apps by ${profile.name}.`,
     PROJECTS_INDEX,
   );
 </script>
@@ -17,19 +17,11 @@
     <header class="project-page__header">
       <p class="eyebrow">{{ projects.length }} projects</p>
       <h1 id="projects-title">All projects<span class="accent">.</span></h1>
-      <p class="project-page__headline">Open source tools, web apps and client work.</p>
+      <p class="project-page__headline">Client work, open source tools and web apps.</p>
     </header>
-    <section
-      id="projects"
-      class="project-grid"
-      aria-labelledby="projects-title"
-    >
-      <ProjectCard
-        v-for="(project, index) in projects"
-        :key="project.slug"
-        :project="project"
-        :index="index"
-      />
-    </section>
+    <ProjectGroups
+      :projects="projects"
+      :level="2"
+    />
   </div>
 </template>

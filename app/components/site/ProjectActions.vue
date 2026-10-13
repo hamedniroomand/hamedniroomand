@@ -9,8 +9,8 @@
 <template>
   <div class="project-page__actions">
     <a
-      v-for="action in actions"
-      :key="action.kind"
+      v-for="(action, index) in actions"
+      :key="`${action.kind}-${index}`"
       :href="action.href"
       class="btn"
       :class="{ 'btn-ghost': action.variant === 'secondary' }"

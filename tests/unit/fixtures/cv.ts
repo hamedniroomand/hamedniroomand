@@ -78,6 +78,7 @@ export const fixtureCv: CvData = {
       slug: 'kitdev',
       name: 'KitDev Space',
       order: 2,
+      repo: 'hamedniroomand/kitdev-space',
       site: 'https://kitdev.space',
       tagline: 'Browser-based developer tools.',
       stack: ['TypeScript', 'Bun'],

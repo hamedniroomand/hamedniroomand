@@ -23,7 +23,7 @@ names or their semantic aliases:
 | Focus indicator    | `--focus-ring`         |
 
 Aliases resolve to the active palette, including the device color scheme. Status
-colors belong to meaningful feedback. Gold identifies interactive and featured
+colors belong to meaningful feedback. Gold identifies interactive and current
 content. Avoid adding decorative accent colors.
 
 ## Themes
@@ -53,17 +53,18 @@ The content width is 1160px with fluid gutters. The hero is left aligned. It giv
 role, where he works from, and links to contact him or download the CV. A quiet
 brand mark balances the right side on large screens.
 
-Cue is the featured project: a readable command workflow alongside a short first-person
-explanation. CPM uses curved connections between venues and a layered portfolio shape. WaveRune
-retains its waveform illustration. KitDev uses a softly offset cluster of six tool
-labs in a wider row. All overview previews are custom Vue/CSS illustrations, never
-raster images. A shared visual frame owns surface, line, ink, and radius tokens,
+Projects come in two groups: client work in a two-column grid, open source in a
+three-column grid on wide screens. Jack Westin shows a flashcard beside a sample practice question.
+Cue shows a readable command workflow. CPM uses curved connections between venues
+and a layered portfolio shape. WaveRune retains its waveform illustration. KitDev
+uses a softly offset cluster of six tool labs in a wider row. All overview previews
+are custom Vue/CSS illustrations, never raster images. A shared visual frame owns surface, line, ink, and radius tokens,
 so their geometry and colors stay consistent across themes. At 700px and below,
 project compositions collapse into one column. Avoid decorative section numbering,
 status dots, and repeated right-hand captions.
 
-Project detail pages lead with one real screenshot, then the story, with additional
-screenshots below it. The first screenshot participates in the shared project
+Project detail pages lead with one real screenshot (or the drawn visual when a project
+has none), then the story, with additional screenshots below it. The first screenshot participates in the shared project
 transition. Preserve screenshot alt text, intrinsic dimensions, and captions.
 
 ## Working samples

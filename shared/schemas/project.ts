@@ -4,10 +4,22 @@ import { ToolCatalogSchema } from '../cv/tool-catalog.ts';
 import { RenderedBody } from './common.ts';
 
 export const ProjectFrontmatter = z
-  .object({
+  .strictObject({
     name: z.string().min(1),
     order: z.number().int(),
-    home: z.boolean().optional(),
+    client: z.string().min(1).optional(),
+    live: z
+      .array(
+        z.strictObject({
+          label: z.string().min(1),
+          url: z
+            .string()
+            .url()
+            .regex(/^https?:\/\//),
+        }),
+      )
+      .min(1)
+      .optional(),
     repo: z
       .string()
       .regex(/^[\w.-]+\/[\w.-]+$/)
@@ -33,6 +45,10 @@ export const ProjectFrontmatter = z
   .refine(value => value.repo !== undefined || value.site !== undefined, {
     message: 'a project needs a repo or site link',
     path: ['repo'],
+  })
+  .refine(value => value.client !== undefined || value.repo !== undefined, {
+    message: 'a project needs a client or a public repo',
+    path: ['client'],
   });
 
 export const ProjectSchema = ProjectFrontmatter.safeExtend({

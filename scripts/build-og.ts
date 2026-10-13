@@ -53,13 +53,14 @@ async function projectCards(): Promise<Card[]> {
     const file = `content/projects/${name}`;
     const project = validate(ProjectFrontmatter, (await readMarkdown(file)).data, file);
     const slug = slugOf(name);
+    const client = project.client !== undefined;
     projectList.push({
       file: `public/${ogCardFile(slug)}`,
-      eyebrow: 'PROJECT',
+      eyebrow: client ? 'CLIENT WORK' : 'PROJECT',
       path: `~/projects/${slug}`,
       heading: `${project.name}.`,
       accent: project.tagline,
-      line: `A project by Hamed Niroomand. Read it at ${DEFAULT_SITE_HOST}.`,
+      line: `${client ? 'Client work' : 'A project'} by Hamed Niroomand. Read it at ${DEFAULT_SITE_HOST}.`,
     });
   }
   return projectList;

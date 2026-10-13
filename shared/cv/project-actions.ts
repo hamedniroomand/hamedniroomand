@@ -1,6 +1,6 @@
 import { githubUrl } from './links.ts';
 
-export type ProjectActionKind = 'site' | 'docs' | 'repo';
+export type ProjectActionKind = 'site' | 'live' | 'docs' | 'repo';
 export type ProjectActionVariant = 'primary' | 'secondary';
 
 export interface ProjectAction {
@@ -14,6 +14,7 @@ export interface ProjectAction {
 export interface LinkableProject {
   name: string;
   site?: string;
+  live?: readonly { label: string; url: string }[];
   docs?: string;
   repo?: string;
 }
@@ -29,6 +30,7 @@ export function projectActions(project: LinkableProject): ProjectAction[] {
     actions.push({ kind, href, label, variant: actions.length === 0 ? 'primary' : 'secondary' });
   };
   if (project.site) add('site', project.site, `Visit ${project.name}`);
+  for (const link of project.live ?? []) add('live', link.url, link.label);
   if (project.docs) add('docs', project.docs, 'Documentation');
   if (project.repo) add('repo', githubUrl(project.repo), 'View on GitHub');
   return actions;

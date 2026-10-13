@@ -1,7 +1,6 @@
 ---
 name: edgefit
 order: 2
-home: true
 repo: hamedniroomand/edgefit
 docs: https://edgefit.kitdev.space
 tagline: Check that a project and its dependencies run on Cloudflare Workers, Bun and Deno before you deploy.

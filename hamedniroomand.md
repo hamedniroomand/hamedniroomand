@@ -1,14 +1,15 @@
 # niroomand.dev
 
-Hamed Niroomand’s personal website introducing his projects, experience, developer tools, and dotfiles. The public homepage leads with
-Customer Portfolio Management, Cue, WaveRune and KitDev Space. Each project has a dedicated overview, real links, and a visual explanation.
+Hamed Niroomand’s personal website introducing his experience, projects, developer tools, and dotfiles. The home page shows
+client work (Jack Westin and Customer Portfolio Management) apart from his open source tools. Each project has a dedicated overview,
+real links, and a visual explanation.
 
 Live site: <https://niroomand.dev>
 
 ## Explore
 
 - `/` — who I am, my work history, my projects, and a contact form.
-- `/projects/cpm`, `/projects/cue`, `/projects/waverune` and `/projects/kitdev` — project overviews and links.
+- `/projects` and `/projects/<name>` — client work and open source projects, each with an overview and links.
 - `/dotfiles` — configuration files with highlighted code, Copy, Share, and gist links.
 - `/cv` — the full résumé and original split terminal experience. The main navigation links to it.
   It is marked `noindex`. The home page links the PDF, and `/api/cv` is available by direct URL.
@@ -27,7 +28,9 @@ page and the scroll position alone.
 
 ## Content and presentation
 
-Project links, names, and stacks come from `content/projects`. Curated public project descriptions
+Project links, names, and stacks come from `content/projects`. A project with `client` is client
+work and names its experience entry; `live` lists its public products. Every other project needs a
+public repository. Curated public project descriptions
 live in `shared/public-site.ts`; résumé content stays in `content`. Shared public layout and
 responsive styling live in `app/components/site` and `app/assets/css/public.css`.
 

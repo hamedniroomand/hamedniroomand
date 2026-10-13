@@ -4,6 +4,7 @@
   import CpmVisual from './visual/CpmVisual.vue';
   import CueVisual from './visual/CueVisual.vue';
   import EdgefitVisual from './visual/EdgefitVisual.vue';
+  import JackWestinVisual from './visual/JackWestinVisual.vue';
   import KitdevVisual from './visual/KitdevVisual.vue';
   import LayerscopeVisual from './visual/LayerscopeVisual.vue';
   import MasirVisual from './visual/MasirVisual.vue';
@@ -15,6 +16,7 @@
     cpm: CpmVisual,
     cue: CueVisual,
     edgefit: EdgefitVisual,
+    'jack-westin': JackWestinVisual,
     kitdev: KitdevVisual,
     layerscope: LayerscopeVisual,
     masir: MasirVisual,
