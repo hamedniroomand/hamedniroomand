@@ -2,14 +2,12 @@ import type { Experience } from '#shared/schemas/experience';
 
 import { formatRange } from './format.ts';
 
-/**
- * One row of the work history on the public site.
- * The row gives the company, the place and the dates. It does not give the role title.
- * The role titles stay on the résumé page.
- */
+/** One row of the work history on the public site. */
 export interface PublicExperience {
   slug: string;
   company: string;
+  /** The role titles, newest first. */
+  roles: string[];
   url?: string;
   location: string;
   type: Experience['type'];
@@ -36,6 +34,9 @@ export function publicExperience(entries: readonly Experience[]): PublicExperien
     return {
       slug: entry.slug,
       company: entry.company,
+      roles: [...entry.roles]
+        .sort((a, b) => b.start.localeCompare(a.start))
+        .map(role => role.title),
       ...(entry.url ? { url: entry.url } : {}),
       location: entry.location,
       type: entry.type,

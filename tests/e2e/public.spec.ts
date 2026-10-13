@@ -150,14 +150,24 @@ test('the public terminal explores without moving the page', async ({ page }) =>
   await expect(page.locator('#public-terminal')).not.toHaveClass(/terminal-dock--minimized/);
 });
 
-test('work history is public on the home page but role titles are not', async ({ page }) => {
+test('the work history shows titles and links client work', async ({ page }) => {
   await page.goto('/');
   const section = page.locator('#experience');
-  await expect(section).toContainText('Jack Westin');
-  await expect(section).toContainText('Thales MFI GmbH');
-  await expect(section).toContainText('Xaankoo');
-  await expect(page.locator('body')).not.toContainText('Team Lead');
-  await expect(page.locator('body')).not.toContainText('Frontend Team Lead');
+  await expect(section).toContainText('Frontend Team Lead · Senior Frontend Developer');
+  await expect(section).toContainText('Technical Consultant & Software Engineer');
+  await expect(section).not.toContainText(/full[- ]stack/i);
+  await expect(page.locator('.home-hero')).not.toContainText('Team Lead');
+  const row = section.locator('.work-row', { hasText: 'Jack Westin' });
+  await expect(row.getByRole('link', { name: 'Flashcards' })).toHaveAttribute(
+    'href',
+    'https://jackwestin.com/flashcards/browse',
+  );
+  await expect(row.getByRole('link', { name: 'Chrome extension' })).toBeVisible();
+  await expect(
+    section.locator('.work-row', { hasText: 'Thales' }).getByRole('link', { name: /Case study/ }),
+  ).toHaveAttribute('href', '/projects/cpm');
+  await row.getByRole('link', { name: /Case study/ }).click();
+  await expect(page).toHaveURL(/\/projects\/jack-westin$/);
 });
 
 test('the project page leads with the product and keeps the repository secondary', async ({

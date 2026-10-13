@@ -15,14 +15,13 @@ it('public filesystem contains projects and dotfiles without private career cont
   expect(fs.readFile('about.md')).not.toContain('Team Lead');
 });
 
-it('publishes work history as flat files with no role titles', () => {
+it('publishes work history as flat files with role titles', () => {
   const fs = publicFs();
   expect(fs.exists('experience/acme.md')).toBe(true);
   const readme = fs.readFile('experience/acme.md');
   expect(readme).toContain('Acme');
   expect(readme).toContain('Jan 2022 – Aug 2026');
-  expect(readme).not.toContain('Team Lead');
-  expect(readme).not.toContain('Senior Developer');
+  expect(readme).toContain('Roles: Team Lead · Senior Developer');
 });
 
 it('keeps highlights and résumé panel targets out of the public filesystem', () => {
