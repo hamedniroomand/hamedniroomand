@@ -937,6 +937,9 @@
 .project-page {
   padding-top: 38px;
 }
+.project-page--index {
+  padding-bottom: calc(var(--space-section) + 12px);
+}
 .project-page__header {
   padding: 48px 0 38px;
 }

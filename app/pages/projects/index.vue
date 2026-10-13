@@ -12,7 +12,7 @@
 </script>
 
 <template>
-  <div class="project-page">
+  <div class="project-page project-page--index">
     <PanelCrumbs :items="crumbs" />
     <header class="project-page__header">
       <p class="eyebrow">{{ projects.length }} projects</p>
