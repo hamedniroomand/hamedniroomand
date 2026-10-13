@@ -1,7 +1,55 @@
 version: 2
 
 updates:
+  - package-ecosystem: bun
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    cooldown:
+      default-days: 3
+      semver-major-days: 14
+    commit-message:
+      prefix: chore
+      include: scope
+    ignore:
+      # Nightly alias (npm:nuxt-nightly@...). Updated by hand.
+      - dependency-name: nuxt
+    groups:
+      # Versions in this group must move together.
+      vite-plus:
+        patterns:
+          - vite
+          - vite-plus
+          - vitest
+          - '@vitest/*'
+      playwright:
+        patterns:
+          - '@playwright/*'
+          - playwright*
+      commitlint:
+        patterns:
+          - '@commitlint/*'
+      production:
+        dependency-type: production
+        update-types:
+          - minor
+          - patch
+      development:
+        dependency-type: development
+        update-types:
+          - minor
+          - patch
+
   - package-ecosystem: github-actions
     directory: /
     schedule:
       interval: weekly
+      day: monday
+    commit-message:
+      prefix: ci
+    groups:
+      actions:
+        patterns:
+          - '*'
