@@ -17,7 +17,22 @@ describe('personJsonLd', () => {
       sameAs: ['https://github.com/hamedniroomand', 'https://linkedin.com/in/example'],
       address: { '@type': 'PostalAddress', addressLocality: 'Yerevan', addressCountry: 'Armenia' },
       knowsLanguage: ['Persian', 'English'],
-      worksFor: { '@type': 'Organization', name: 'Acme' },
+    });
+  });
+
+  it('names no employer when every role has ended', () => {
+    expect(personJsonLd(fixtureCv, 'https://hamed.test').worksFor).toBeUndefined();
+  });
+
+  it('names the employer of an open role', () => {
+    const open = {
+      ...fixtureCv.experience[1]!,
+      roles: [{ title: 'Developer', start: '2026-09', end: 'present' as const }],
+    };
+    const cv = { ...fixtureCv, experience: [fixtureCv.experience[0]!, open] };
+    expect(personJsonLd(cv, 'https://hamed.test').worksFor).toEqual({
+      '@type': 'Organization',
+      name: 'Globex',
     });
   });
 
