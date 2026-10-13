@@ -10,10 +10,11 @@ export const ProfileSchema = z.object({
     tz: z.string(),
   }),
   remote: z.boolean(),
+  openToWork: z.boolean().optional(),
   languages: z.array(z.object({ name: z.string(), level: z.string() })),
   links: z.object({
     github: z.string(),
-    linkedin: z.string(),
+    linkedin: z.string().url(),
     email: z.string(),
     website: z.string().optional(),
   }),

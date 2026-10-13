@@ -1,20 +1,20 @@
 <script setup lang="ts">
   import { githubUrl, mailtoUrl } from '#shared/cv/links';
+  import { DOTFILES_INDEX } from '#shared/cv/panel-target';
 
   const { site } = useAppConfig();
   const { links } = useCv().profile;
   const items = [
-    { href: mailtoUrl(links.email), label: 'Say hello', external: false },
-    { href: githubUrl(links.github), label: 'GitHub', external: true },
-    { href: site.repo, label: 'Source', external: true },
+    { to: mailtoUrl(links.email), label: 'Email', external: false },
+    { to: links.linkedin, label: 'LinkedIn', external: true },
+    { to: githubUrl(links.github), label: 'GitHub', external: true },
+    { to: DOTFILES_INDEX, label: 'Dotfiles', external: false },
+    { to: site.repo, label: 'Source', external: true },
   ];
 </script>
 
 <template>
-  <footer
-    id="contact"
-    class="site-footer"
-  >
+  <footer class="site-footer">
     <div>
       <NuxtLink
         to="/"
@@ -24,13 +24,13 @@
       <p>A small corner of the internet, made by hand.</p>
     </div>
     <div class="footer-links">
-      <a
+      <NuxtLink
         v-for="item in items"
-        :key="item.href"
-        :href="item.href"
+        :key="item.label"
+        :to="item.to"
         :target="item.external ? '_blank' : undefined"
         :rel="item.external ? 'noopener' : undefined"
-        >{{ item.label }} ↗</a
+        >{{ item.label }}{{ item.external ? ' ↗' : '' }}</NuxtLink
       >
     </div>
   </footer>

@@ -5,7 +5,7 @@ import type { CvData } from '#shared/schemas/cv';
 import type { Dotfile } from '#shared/schemas/dotfile';
 
 const OG_IMAGE = { width: 1200, height: 630 };
-const HOME_CARD_ALT = 'Hamed Niroomand — Projects, tools & experiments';
+const HOME_CARD_ALT = 'Hamed Niroomand, Senior Web Developer. Projects, work history and contact.';
 
 interface PageSeo {
   title: string;

@@ -49,8 +49,8 @@ Body text is 15–16px, important metadata at least 12px. Tiny illustration labe
 be 11px. Display text uses weight 550–560 and negative tracking. Keep reading lines
 around 45–65 characters. Headings balance and paragraphs wrap prettily.
 
-The content width is 1160px with fluid gutters. The hero is left aligned, names Hamed,
-and describes developer tools, signal processing, and financial workflows. A quiet
+The content width is 1160px with fluid gutters. The hero is left aligned. It gives Hamed's name and
+role, where he works from, and links to contact him or download the CV. A quiet
 brand mark balances the right side on large screens.
 
 Cue is the featured project: a readable command workflow alongside a short first-person

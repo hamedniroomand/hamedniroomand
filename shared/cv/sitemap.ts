@@ -6,7 +6,7 @@ type IndexableContent = Pick<CvData, 'projects' | 'dotfiles'>;
 
 /**
  * Every page that a search engine may index.
- * The résumé is not here. It carries a `noindex` tag, because Hamed sends that link himself.
+ * The résumé is not here. It carries a `noindex` tag, so search engines skip it.
  */
 export function indexableRoutes(cv: IndexableContent): string[] {
   return [

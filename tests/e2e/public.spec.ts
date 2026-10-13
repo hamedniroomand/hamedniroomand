@@ -1,17 +1,46 @@
 import { expect, test } from '@playwright/test';
 
-test('public home leads with projects and keeps the résumé off the default path', async ({
-  page,
-}) => {
+test('the hero says who Hamed is and how to reach him', async ({ page }) => {
   await page.goto('/');
-  await expect(page.getByRole('heading', { level: 1 })).toContainText('Useful things');
-  await expect(page.getByRole('heading', { name: 'Selected projects' })).toBeVisible();
-  await expect(page.locator('#experience')).toBeVisible();
-  await expect(page.locator('a[href="/cv"]')).toHaveCount(0);
+  const hero = page.locator('.home-hero');
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Hamed Niroomand.');
+  await expect(hero).toContainText('Senior Web Developer');
+  await expect(hero).not.toContainText('Team Lead');
+  await expect(hero.getByRole('link', { name: 'Get in touch' })).toHaveAttribute(
+    'href',
+    '#contact',
+  );
+  const cv = hero.getByRole('link', { name: 'Download CV' });
+  await expect(cv).toHaveAttribute('href', '/hamed-niroomand-cv.pdf');
+  await expect(cv).toHaveAttribute('download', 'hamed-niroomand-cv.pdf');
+  await expect(hero.getByRole('link', { name: 'LinkedIn profile' })).toHaveAttribute(
+    'href',
+    /linkedin\.com/,
+  );
+  await expect(hero.getByRole('link', { name: 'GitHub profile' })).toBeVisible();
   await expect(page.getByLabel('Terminal input')).toHaveCount(0);
-  await page.getByRole('link', { name: 'Explore edgefit' }).click();
-  await expect(page).toHaveURL(/\/projects\/edgefit$/);
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('edgefit.');
+});
+
+test('the nav reaches every part and the footer keeps the extras', async ({ page }) => {
+  await page.goto('/');
+  const nav = page.getByRole('navigation', { name: 'Main navigation' });
+  await expect(nav.getByRole('link')).toHaveText(['Experience', 'Projects', 'Contact', 'CV']);
+  await expect(nav.getByRole('link', { name: 'CV' })).toHaveAttribute('href', '/cv');
+  const footer = page.locator('.site-footer');
+  await expect(footer).not.toHaveAttribute('id', 'contact');
+  await expect(footer.getByRole('link', { name: 'Dotfiles', exact: true })).toBeVisible();
+  await expect(footer.getByRole('link', { name: 'LinkedIn ↗' })).toBeVisible();
+  await footer.getByRole('link', { name: /Dotfiles/ }).click();
+  await expect(page).toHaveURL(/\/dotfiles$/);
+});
+
+test('the home page goes hero, experience, projects, contact', async ({ page }) => {
+  await page.goto('/');
+  const ids = await page
+    .locator('.home-page > section')
+    .evaluateAll(sections => sections.map(section => section.id));
+  expect(ids).toEqual(['top', 'experience', 'projects', 'contact']);
+  await expect(page.getByRole('heading', { name: /Make yourself/ })).toHaveCount(0);
 });
 
 test('the home page shows a selection and links to the full project list', async ({ page }) => {
@@ -44,7 +73,6 @@ test('public terminal opens on demand and closes with focus restored', async ({ 
   await input.fill('ls experience');
   await input.press('Enter');
   await expect(page.getByRole('log')).toContainText('jack-westin.md');
-  await expect(page.getByRole('log')).not.toContainText('Team Lead');
   await page.getByRole('button', { name: 'Close terminal' }).click();
   await expect(input).toBeHidden();
   await expect(trigger).toBeFocused();
@@ -52,7 +80,7 @@ test('public terminal opens on demand and closes with focus restored', async ({ 
   await expect(input).toBeFocused();
 });
 
-test('public pages fit the viewport and connect to dotfiles', async ({ page }) => {
+test('public pages fit the viewport and keep the main navigation', async ({ page }) => {
   for (const path of [
     '/',
     '/projects',
