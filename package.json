@@ -42,7 +42,7 @@
     "@vitest/coverage-v8": "5.0.4",
     "h3": "2.0.2",
     "rangi": "2.2.0",
-    "typescript": "^6",
+    "typescript": "^7",
     "vite": "npm:@voidzero-dev/vite-plus-core@1.1.0",
     "vite-plus": "1.1.0",
     "vitest": "5.0.4",
