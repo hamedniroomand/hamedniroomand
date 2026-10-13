@@ -1,35 +1,11 @@
 <script setup lang="ts">
-  import type { ContactField as ContactFieldName } from '#shared/schemas/contact';
-
-  interface FieldSpec {
-    name: ContactFieldName;
-    label: string;
-    multiline?: boolean;
-    attrs: Record<string, string | number | boolean>;
-  }
-
-  const FIELDS: FieldSpec[] = [
-    {
-      name: 'name',
-      label: 'name:',
-      attrs: { type: 'text', required: true, maxlength: 100, autocomplete: 'name' },
-    },
-    {
-      name: 'email',
-      label: 'email:',
-      attrs: { type: 'email', required: true, maxlength: 200, autocomplete: 'email' },
-    },
-    {
-      name: 'message',
-      label: 'message:',
-      multiline: true,
-      attrs: { required: true, minlength: 10, maxlength: 5000, rows: 5 },
-    },
-  ];
-
   const emit = defineEmits<{ close: [] }>();
 
   const dialog = ref<HTMLDialogElement | null>(null);
+  const formEl = ref<HTMLFormElement | null>(null);
+  const closeButton = ref<HTMLButtonElement | null>(null);
+  const checkFailed = ref(false);
+  const { email } = useCv().profile.links;
   const widget = ref<{ reset: () => void } | null>(null);
   const { form, state, error, errors, submit } = useContactForm();
   const siteKey = useRuntimeConfig().public.turnstile.siteKey;
@@ -45,7 +21,13 @@
 
   async function onSubmit(): Promise<void> {
     const sent = await submit();
-    if (!sent) widget.value?.reset();
+    await nextTick();
+    if (sent) {
+      closeButton.value?.focus();
+      return;
+    }
+    widget.value?.reset();
+    focusContactError(formEl.value);
   }
 </script>
 
@@ -58,6 +40,7 @@
     @click.self="close"
   >
     <form
+      ref="formEl"
       class="modal__form"
       novalidate
       @submit.prevent="onSubmit"
@@ -70,12 +53,12 @@
       </h2>
       <template v-if="state !== 'sent'">
         <ContactField
-          v-for="field in FIELDS"
+          v-for="field in CONTACT_FIELDS"
           :key="field.name"
           v-model="form[field.name]"
           v-bind="field.attrs"
           :name="field.name"
-          :label="field.label"
+          :label="`${field.name}:`"
           :multiline="field.multiline"
           :error="errors[field.name]"
         />
@@ -97,14 +80,24 @@
             ref="widget"
             v-model="form.turnstileToken"
             :site-key="siteKey"
+            @failed="checkFailed = $event"
           />
         </div>
         <p
           v-if="error"
           class="modal__error"
           role="alert"
+          tabindex="-1"
         >
           {{ error }}
+        </p>
+        <p
+          v-if="checkFailed"
+          class="modal__error"
+          role="alert"
+          tabindex="-1"
+        >
+          The spam check failed. Email me at {{ email }} instead.
         </p>
         <div class="modal__actions">
           <button
@@ -132,6 +125,7 @@
         </p>
         <div class="modal__actions">
           <button
+            ref="closeButton"
             type="button"
             class="btn"
             @click="close"

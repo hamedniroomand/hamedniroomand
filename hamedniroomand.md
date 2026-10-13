@@ -7,14 +7,14 @@ Live site: <https://niroomand.dev>
 
 ## Explore
 
-- `/` — selected projects, a short work history, a look at my setup, and contact links.
+- `/` — who I am, my work history, my projects, and a contact form.
 - `/projects/cpm`, `/projects/cue`, `/projects/waverune` and `/projects/kitdev` — project overviews and links.
 - `/dotfiles` — configuration files with highlighted code, Copy, Share, and gist links.
-- `/cv` — the full résumé and original split terminal experience. This route is unlisted and
-  marked `noindex`, not password-protected. The PDF and `/api/cv` remain available by direct URL.
+- `/cv` — the full résumé and original split terminal experience. The main navigation links to it.
+  It is marked `noindex`. The home page links the PDF, and `/api/cv` is available by direct URL.
 
-The work history is public, but it gives only the company, the place, the dates and one line each.
-Role titles, skills, education and the PDF stay on `/cv`, which I send to a company by direct link.
+The work history on the home page gives the company, the place, the dates and one line each.
+Skills and education stay on `/cv`.
 
 The public terminal loads only when opened. Try `ls projects`, `ls experience`, `dotfiles`, or
 `menu`. It has a public filesystem and command selection; career commands belong to the résumé

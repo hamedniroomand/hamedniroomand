@@ -1,13 +1,16 @@
 <script setup lang="ts">
+  import { RESUME_PATH } from '#shared/cv/panel-target';
+
   defineProps<{ terminalOpen: boolean }>();
   defineEmits<{ toggleTerminal: [] }>();
 
   const route = useRoute();
   /** Each link is current on the pages under its section. The home page has no current link. */
   const NAV = [
-    { to: '/projects', label: 'Projects', section: '/projects' },
     { to: '/#experience', label: 'Experience', section: undefined },
-    { to: '/dotfiles', label: 'Dotfiles', section: '/dotfiles' },
+    { to: '/projects', label: 'Projects', section: '/projects' },
+    { to: '/#contact', label: 'Contact', section: undefined },
+    { to: RESUME_PATH, label: 'CV', section: undefined },
   ];
 
   function isCurrent(section: string | undefined): boolean {

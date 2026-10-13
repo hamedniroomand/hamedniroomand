@@ -1,21 +1,22 @@
 <script setup lang="ts">
   defineOptions({ inheritAttrs: false });
 
-  const props = defineProps<{
+  defineProps<{
     name: string;
     label: string;
     error?: string;
     multiline?: boolean;
+    stacked?: boolean;
   }>();
 
   const value = defineModel<string>({ required: true });
-  const errorId = computed(() => `contact-error-${props.name}`);
+  const errorId = `${useId()}-error`;
 </script>
 
 <template>
   <label
     class="field"
-    :class="{ 'field--area': multiline }"
+    :class="{ 'field--area': multiline, 'field--stacked': stacked }"
   >
     <span>{{ label }}</span>
     <textarea
@@ -77,6 +78,15 @@
     font-size: var(--text-xs);
   }
 
+  .field--stacked {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 6px;
+  }
+
+  .field--stacked .field__error {
+    grid-column: 1;
+  }
+
   .field input[aria-invalid='true'],
   .field textarea[aria-invalid='true'] {
     border-color: var(--error);
@@ -99,6 +109,10 @@
   @media (max-width: 480px) {
     .field {
       grid-template-columns: 1fr;
+    }
+
+    .field__error {
+      grid-column: 1;
     }
   }
 </style>

@@ -4,7 +4,7 @@ import { githubUrl, mailtoUrl } from './links';
 
 export function personJsonLd(cv: CvData, siteUrl: string): Record<string, unknown> {
   const { profile } = cv;
-  const current = cv.experience[0];
+  const current = cv.experience.find(entry => entry.roles.some(role => role.end === 'present'));
   return {
     '@context': 'https://schema.org',
     '@type': 'Person',

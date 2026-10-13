@@ -14,28 +14,31 @@ declare global {
 const SCRIPT_SRC =
   'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=onTurnstileLoad';
 
-function appendScript(onError: () => void): void {
-  if (document.querySelector(`script[src="${SCRIPT_SRC}"]`)) return;
-  const script = document.createElement('script');
-  script.src = SCRIPT_SRC;
-  script.async = true;
-  script.addEventListener('error', onError);
-  document.head.appendChild(script);
-}
+let loading: Promise<TurnstileApi> | undefined;
 
+/** All widgets share one load. A failed load removes its script, so the next widget tries again. */
 export function loadTurnstile(): Promise<TurnstileApi> {
-  return new Promise((resolve, reject) => {
-    if (window.turnstile) {
-      resolve(window.turnstile);
-      return;
-    }
-    const previous = window.onTurnstileLoad;
+  if (window.turnstile) return Promise.resolve(window.turnstile);
+  loading ??= new Promise((resolve, reject) => {
     window.onTurnstileLoad = () => {
-      previous?.();
       if (window.turnstile) resolve(window.turnstile);
     };
-    appendScript(() => reject(new Error('turnstile script failed to load')));
+    const script = document.createElement('script');
+    script.src = SCRIPT_SRC;
+    script.async = true;
+    const fail = (): void => {
+      script.remove();
+      loading = undefined;
+      reject(new Error('turnstile script failed to load'));
+    };
+    script.addEventListener('error', fail);
+    // A blocker can answer with an empty script. It loads, but Turnstile never starts.
+    script.addEventListener('load', () => {
+      if (!window.turnstile) fail();
+    });
+    document.head.appendChild(script);
   });
+  return loading;
 }
 
 export function turnstileTheme(): 'light' | 'dark' | 'auto' {
