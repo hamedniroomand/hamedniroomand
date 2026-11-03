@@ -26,8 +26,8 @@
     "screenshots": "bun run scripts/build-screenshots.ts"
   },
   "dependencies": {
-    "marked": "^18.1.2",
-    "nuxt": "npm:nuxt-nightly@5.0.0-2610310002-4036aa7",
+    "marked": "^18.1.3",
+    "nuxt": "npm:nuxt-nightly@5.0.0-2611031025-9496b7e",
     "vue": "^3.5.44",
     "vue-router": "^5.4.0",
     "zod": "^4.6.7"
