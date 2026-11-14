@@ -44,7 +44,7 @@ export default defineNuxtConfig({
     // type-aware lint then see them. Without this, a lint of one staged script cannot
     // resolve the node types.
     tsConfig: {
-      include: ['../tests/**/*', '../scripts/**/*'],
+      include: ['../tests/**/*', '../scripts/**/*', '../playwright.config.ts'],
       compilerOptions: { paths: { '#cv': ['../tests/unit/fixtures/cv-module.ts'] } },
     },
   },
