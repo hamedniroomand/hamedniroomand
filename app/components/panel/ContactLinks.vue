@@ -11,8 +11,7 @@
 
 <template>
   <p>
-    Email <a :href="mailtoUrl(profile.links.email)">{{ profile.links.email }}</a
-    >, or find me on
+    Email <a :href="mailtoUrl(profile.links.email)">{{ profile.links.email }}</a>, or find me on
     <a
       :href="profile.links.linkedin"
       rel="me noopener"

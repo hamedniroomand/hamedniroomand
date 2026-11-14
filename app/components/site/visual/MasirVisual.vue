@@ -20,8 +20,7 @@
           v-for="route in ROUTES"
           :key="route.audience"
         >
-          <span>{{ route.audience }}</span
-          ><span class="short-link__arrow">→</span
+          <span>{{ route.audience }}</span><span class="short-link__arrow">→</span
           ><span class="short-link__destination">{{ route.destination }}</span>
         </li>
       </ul>

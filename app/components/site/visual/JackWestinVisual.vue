@@ -27,8 +27,7 @@
             :key="option.key"
             :class="{ 'jw-exam__correct': option.correct }"
           >
-            <span>{{ option.key }}</span
-            >{{ option.text }}
+            <span>{{ option.key }}</span>{{ option.text }}
           </li>
         </ul>
       </div>

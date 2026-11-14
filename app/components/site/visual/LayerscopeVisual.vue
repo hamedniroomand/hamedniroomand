@@ -32,8 +32,7 @@
           :key="use.symbol"
           :class="{ 'layer-map__violation': !use.allowed }"
         >
-          <span>{{ use.from }} → {{ use.to }}</span
-          ><span>{{ use.symbol }}</span
+          <span>{{ use.from }} → {{ use.to }}</span><span>{{ use.symbol }}</span
           ><small>{{ use.allowed ? 'allowed' : 'not allowed' }}</small>
         </li>
       </ul>

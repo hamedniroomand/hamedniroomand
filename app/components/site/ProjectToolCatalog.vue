@@ -27,9 +27,7 @@
         v-for="lab in labs"
         :key="lab.name"
       >
-        <p class="catalog__lab">
-          {{ lab.name }} <span>{{ lab.count }}</span>
-        </p>
+        <p class="catalog__lab">{{ lab.name }} <span>{{ lab.count }}</span></p>
         <p class="catalog__tools">
           <template
             v-for="(tool, index) in lab.shown"

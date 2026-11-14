@@ -15,9 +15,7 @@
       <h2 id="extensions-title">{{ extensions.length }} extensions</h2>
       <p>Every name opens in the Visual Studio Marketplace.</p>
     </div>
-    <p class="extensions__install">
-      <span>Install them all</span><code>{{ install }}</code>
-    </p>
+    <p class="extensions__install"><span>Install them all</span><code>{{ install }}</code></p>
     <ul class="extensions__list">
       <li
         v-for="extension in extensions"

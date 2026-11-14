@@ -8,10 +8,7 @@
     role="img"
     :aria-label="label"
   >
-    <div class="visual-topline">
-      <span>{{ title }}</span
-      ><span v-if="note">{{ note }}</span>
-    </div>
+    <div class="visual-topline"><span>{{ title }}</span><span v-if="note">{{ note }}</span></div>
     <slot />
     <div
       v-if="$slots.bottom"

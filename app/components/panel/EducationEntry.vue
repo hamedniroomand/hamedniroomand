@@ -7,8 +7,7 @@
 
 <template>
   <p class="education">
-    <strong>{{ education.degree }} {{ education.field }}</strong
-    ><br />
+    <strong>{{ education.degree }} {{ education.field }}</strong><br />
     {{ education.institution }}, {{ education.location }}<br />
     <span class="education__dates">{{ formatRange(education.start, education.end) }}</span>
   </p>

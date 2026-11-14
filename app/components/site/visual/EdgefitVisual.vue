@@ -25,8 +25,7 @@
           :class="{ 'edgefit-check__error': finding.error }"
         >
           <span class="edgefit-check__status">{{ finding.status }}</span
-          ><span>{{ finding.api }}</span
-          ><small>{{ finding.source }}</small>
+          ><span>{{ finding.api }}</span><small>{{ finding.source }}</small>
         </li>
       </ul>
     </div>
