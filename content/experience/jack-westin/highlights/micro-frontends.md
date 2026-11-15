@@ -1,6 +1,6 @@
 ---
-title: Micro-frontends for the marketing site
-order: 3
+title: Web components as micro-frontends for four hosts
+order: 4
 ---
 
-Delivered reusable components and business logic to marketing through a micro-frontend architecture embedded in their WordPress site, removing duplicate implementations across stacks.
+Built framework-agnostic web components that deliver the same features as micro-frontends to four very different hosts: the marketing WordPress site, the Chrome extension, and both the Nuxt 2 and Nuxt 4 apps, with style isolation and versioned releases. This removed duplicate implementations across stacks.

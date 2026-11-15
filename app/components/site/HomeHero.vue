@@ -3,6 +3,18 @@
   import { PDF_FILE, PDF_PATH } from '#shared/pdf';
 
   const { profile } = useCv();
+  const siteUrl = useRuntimeConfig().public.siteUrl.replace(/\/+$/, '');
+  const command = `curl ${siteUrl}/api/cv`;
+  const { copy, copied } = useClipboard();
+  const copyFailed = ref(false);
+  const copyStatus = computed(() => {
+    if (copied.value) return 'Command copied.';
+    return copyFailed.value ? 'Could not copy. Select the command instead.' : '';
+  });
+
+  async function copyCommand(): Promise<void> {
+    copyFailed.value = !(await copy(command));
+  }
 </script>
 
 <template>
@@ -11,23 +23,22 @@
     class="home-hero"
   >
     <p class="hero-caption">
-      <span>Senior Web Developer</span>
+      <span>Senior Frontend Engineer</span>
       <span
         v-if="profile.openToWork"
         class="hero-badge"
         >Open to work</span
       >
     </p>
-    <h1>
-      <span>{{ profile.name }}.</span>{{ ' ' }}
-      <span class="hero-subline">Useful things, built with <em>curiosity.</em></span>
-    </h1>
-    <div class="hero-bottom">
-      <p>
-        I’m Hamed, a senior web developer with 7+ years in Vue, Nuxt and TypeScript. I build
-        learning platforms, financial dashboards and developer tools, from the interface to the
-        services behind it. I live in Yerevan and work remotely on US and EU hours.
+    <h1><span>Hamed</span>{{ ' ' }}<span>Niroomand.</span></h1>
+    <div class="hero-pitch">
+      <p class="hero-thesis">I build interfaces that hold together.</p>
+      <p class="hero-intro">
+        Vue, Nuxt and TypeScript, from the design system to the server render. Based in Yerevan,
+        remote on US and EU hours.
       </p>
+    </div>
+    <div class="hero-cta">
       <div class="hero-actions">
         <a
           href="#contact"
@@ -60,6 +71,20 @@
         </span>
       </div>
     </div>
-    <BrandMark class="hero-decoration" />
+    <HeroAssembly class="hero-figure" />
+    <p class="hero-command">
+      <code>{{ command }}</code>
+      <button
+        type="button"
+        @click="copyCommand"
+      >
+        {{ copied ? 'Copied' : 'Copy' }}<span class="visually-hidden"> the command</span>
+      </button>
+      <span
+        class="visually-hidden"
+        aria-live="polite"
+        >{{ copyStatus }}</span
+      >
+    </p>
   </section>
 </template>

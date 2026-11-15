@@ -22,12 +22,12 @@
           :href="entry.url"
           target="_blank"
           rel="noopener"
-          >{{ entry.company }} <span aria-hidden="true">↗</span></a
+          >{{ entry.company }}</a
         >
         <template v-else>{{ entry.company }}</template>
       </h3>
-      <p class="work-row__roles">{{ entry.roles.join(' · ') }}</p>
-      <p class="work-row__where">{{ entry.location }} · {{ entry.type }}</p>
+      <p class="work-row__roles">{{ entry.roles.join(', ') }}</p>
+      <p class="work-row__where">{{ entry.location }}, {{ entry.type }}</p>
       <p class="work-row__summary">{{ entry.summary }}</p>
       <ul class="work-row__stack">
         <li
@@ -41,9 +41,7 @@
         v-if="project"
         class="work-row__links"
       >
-        <NuxtLink :to="projectPath(project.slug)"
-          >Case study <span aria-hidden="true">→</span></NuxtLink
-        >
+        <NuxtLink :to="projectPath(project.slug)">Case study</NuxtLink>
         <template v-if="project.live">
           <span class="work-row__try">Try it:</span>
           <a

@@ -108,10 +108,19 @@ function checkClients(
 ): void {
   const companies = experience.map(entry => entry.slug);
   for (const project of projects) {
-    if (project.client && !companies.includes(project.client)) {
+    if (!project.client) continue;
+    const employer = companies.includes(project.client);
+    // A freelance client with the slug of an employer would take the case-study link of that employer.
+    if (project.freelance && employer) {
       throw new ContentError(
         join(dir, `${project.slug}.md`),
-        `client "${project.client}" matches no experience entry (${companies.join(', ')})`,
+        `client "${project.client}" is an experience entry, so the project cannot be freelance`,
+      );
+    }
+    if (!project.freelance && !employer) {
+      throw new ContentError(
+        join(dir, `${project.slug}.md`),
+        `client "${project.client}" matches no experience entry (${companies.join(', ')}). For a client outside the work history, set "freelance: true"`,
       );
     }
   }

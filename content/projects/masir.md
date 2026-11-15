@@ -1,10 +1,10 @@
 ---
 name: Masir
-order: 5
+order: 9
 repo: hamedniroomand/masir
 site: https://masir.dev
 docs: https://docs.masir.dev
-tagline: Self-hosted short links with workspaces, access control and privacy-friendly analytics.
+tagline: Self-hosted short links with a team workspace, access control and privacy-friendly analytics.
 stack:
   - Nuxt
   - Bun
@@ -27,6 +27,6 @@ screenshots:
 
 Masir turns long URLs into short ones on your own domain and keeps them under your control after you share them. Change where a link points, put a password in front of it, let it expire, or limit how many times it can be opened.
 
-Links belong to workspaces with owner, member and viewer roles. One link can send iOS, Android, desktop or a country to a different destination. Analytics count clicks, referrers, countries and devices without storing IP addresses, user agents or visitor cookies. It ships as a Docker image with Postgres.
+Links belong to a team workspace with owner, member and viewer roles. One link can send iOS, Android, desktop or a country to a different destination. Analytics count clicks, referrers, countries and devices without storing IP addresses, user agents or visitor cookies. It ships as a Docker image with Postgres.
 
 This is the committed fallback description. When the site is built with network access, the live README from `github.com/hamedniroomand/masir` replaces it.

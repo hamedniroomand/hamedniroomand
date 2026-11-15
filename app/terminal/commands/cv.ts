@@ -17,7 +17,7 @@ function printSummary(ctx: CommandContext): void {
     .flatMap(category => category.items.slice(0, 3).map(item => item.name));
   ctx.stdout.line(`Skills: ${top.join(', ')}`);
   ctx.stdout.line();
-  ctx.stdout.line('cv --pdf downloads the one-page PDF · cv --json dumps the data', 'dim');
+  ctx.stdout.line('cv --pdf downloads the PDF résumé · cv --json dumps the data', 'dim');
 }
 
 export default {

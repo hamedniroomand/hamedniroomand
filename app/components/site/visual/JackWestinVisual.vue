@@ -32,7 +32,7 @@
         </ul>
       </div>
     </div>
-    <template #bottom><span>500K+ student accounts</span><span>Vue 3 · Nuxt 4</span></template>
+    <template #bottom><span>500K+ registered accounts</span><span>Vue 3 · Nuxt 4</span></template>
   </VisualFrame>
 </template>
 

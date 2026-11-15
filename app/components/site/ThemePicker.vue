@@ -9,8 +9,8 @@
   const { theme, chosen, ready, set, scanlines, setScanlines } = useTheme();
   const root = ref<HTMLDetailsElement | null>(null);
   const SWATCHES: Record<ThemeName, string[]> = {
-    dark: ['#151615', '#eeeae2', '#dcb66d'],
-    light: ['#f6f5f2', '#1c1f26', '#8a5a00'],
+    dark: ['#0c2547', '#eef3fb', '#ffd24a'],
+    light: ['#f2f4f6', '#0f1f3d', '#c8102e'],
     gruvbox: ['#282828', '#ebdbb2', '#fabd2f'],
     dracula: ['#282a36', '#bd93f9', '#50fa7b'],
     crt: ['#0a0f0a', '#5fb85f', '#9dff9d'],

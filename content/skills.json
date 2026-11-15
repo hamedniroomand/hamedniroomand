@@ -1,34 +1,99 @@
 {
   "categories": [
     {
-      "id": "languages",
-      "label": "Languages",
-      "items": [
-        {
-          "name": "TypeScript"
-        },
-        {
-          "name": "JavaScript",
-          "note": "ESNext"
-        },
-        {
-          "name": "PHP"
-        },
-        {
-          "name": "Bash"
-        }
-      ]
-    },
-    {
-      "id": "frontend",
-      "label": "Frontend",
+      "id": "core",
+      "label": "Core frontend",
       "items": [
         {
           "name": "Vue 3"
         },
         {
-          "name": "Nuxt 4"
+          "name": "Nuxt",
+          "note": "2, 3, 4"
         },
+        {
+          "name": "TypeScript"
+        },
+        {
+          "name": "JavaScript",
+          "note": "ES6+"
+        },
+        {
+          "name": "HTML5"
+        },
+        {
+          "name": "CSS / Sass"
+        },
+        {
+          "name": "SSR & hydration"
+        },
+        {
+          "name": "Core Web Vitals"
+        },
+        {
+          "name": "Performance optimization"
+        },
+        {
+          "name": "Technical SEO"
+        },
+        {
+          "name": "Accessibility"
+        },
+        {
+          "name": "Responsive & cross-browser UI"
+        },
+        {
+          "name": "Nuxt layers"
+        },
+        {
+          "name": "Web components"
+        },
+        {
+          "name": "Micro-frontends"
+        },
+        {
+          "name": "Browser extensions"
+        },
+        {
+          "name": "Design systems"
+        }
+      ]
+    },
+    {
+      "id": "delivery",
+      "label": "Delivery",
+      "items": [
+        {
+          "name": "REST API design"
+        },
+        {
+          "name": "Testing strategy"
+        },
+        {
+          "name": "CI/CD"
+        },
+        {
+          "name": "Code review"
+        },
+        {
+          "name": "Mentoring"
+        },
+        {
+          "name": "Technical documentation"
+        },
+        {
+          "name": "Technical interviewing",
+          "note": "40+ interviewed, 3 hires"
+        },
+        {
+          "name": "Sprint planning"
+        }
+      ]
+    },
+    {
+      "id": "frontend",
+      "label": "Frontend libraries",
+      "items": [
         {
           "name": "Pinia"
         },
@@ -51,44 +116,10 @@
           "name": "Zod"
         },
         {
-          "name": "Vite"
-        },
-        {
-          "name": "CSS",
-          "note": "custom properties, layout, print"
-        },
-        {
           "name": "React"
         },
         {
           "name": "Svelte"
-        }
-      ]
-    },
-    {
-      "id": "architecture",
-      "label": "Architecture",
-      "items": [
-        {
-          "name": "Design systems"
-        },
-        {
-          "name": "Micro-frontends"
-        },
-        {
-          "name": "SSR & hydration"
-        },
-        {
-          "name": "Performance optimization"
-        },
-        {
-          "name": "REST API design"
-        },
-        {
-          "name": "Testing strategy"
-        },
-        {
-          "name": "CI/CD"
         }
       ]
     },
@@ -100,34 +131,35 @@
           "name": "Node.js"
         },
         {
-          "name": "Bun"
-        },
-        {
           "name": "NestJS"
-        },
-        {
-          "name": "Hono"
         },
         {
           "name": "Express"
         },
         {
+          "name": "Hono"
+        },
+        {
+          "name": "Bun"
+        },
+        {
+          "name": "REST APIs"
+        },
+        {
+          "name": "Stripe"
+        },
+        {
+          "name": "MCP servers"
+        },
+        {
           "name": "Laravel",
           "note": "API integration"
-        },
-        {
-          "name": "WordPress",
-          "note": "themes and plugins"
-        },
-        {
-          "name": "Blockchain & exchange APIs",
-          "note": "16 chains, 12 exchanges"
         }
       ]
     },
     {
       "id": "testing",
-      "label": "Testing & QA",
+      "label": "Testing & quality",
       "items": [
         {
           "name": "Vitest"
@@ -139,31 +171,31 @@
           "name": "Cypress"
         },
         {
+          "name": "Lighthouse"
+        },
+        {
+          "name": "Sentry"
+        },
+        {
           "name": "Postman"
         },
         {
           "name": "Manual QA"
-        },
-        {
-          "name": "UX auditing"
         }
       ]
     },
     {
       "id": "tooling",
-      "label": "Tooling",
+      "label": "DevOps & tooling",
       "items": [
         {
           "name": "Git"
         },
         {
-          "name": "GitHub Actions"
-        },
-        {
           "name": "GitLab CI"
         },
         {
-          "name": "GitHub Packages"
+          "name": "GitHub Actions"
         },
         {
           "name": "Docker"
@@ -172,60 +204,13 @@
           "name": "Vercel"
         },
         {
-          "name": "Figma to code"
-        }
-      ]
-    },
-    {
-      "id": "ai-tooling",
-      "label": "AI tooling",
-      "items": [
-        {
-          "name": "Claude Code"
+          "name": "Vite"
         },
         {
-          "name": "Codex"
+          "name": "npm package publishing"
         },
         {
-          "name": "AI SDK"
-        },
-        {
-          "name": "MCP servers"
-        }
-      ]
-    },
-    {
-      "id": "leadership",
-      "label": "Leadership",
-      "items": [
-        {
-          "name": "Team lead",
-          "note": "team of 5"
-        },
-        {
-          "name": "Hiring & interviewing",
-          "note": "40+ screened, 3 hires"
-        },
-        {
-          "name": "Technical roadmapping"
-        },
-        {
-          "name": "PRD breakdown"
-        },
-        {
-          "name": "API contract design"
-        },
-        {
-          "name": "Sprint planning"
-        },
-        {
-          "name": "Code review"
-        },
-        {
-          "name": "Mentoring & knowledge sharing"
-        },
-        {
-          "name": "Technical documentation"
+          "name": "Figma"
         }
       ]
     }

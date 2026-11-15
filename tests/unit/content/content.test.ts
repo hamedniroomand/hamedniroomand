@@ -3,6 +3,7 @@ import { resolve } from 'node:path';
 import { describe, expect, it } from 'vite-plus/test';
 
 import { parseExtensions } from '#shared/cv/extensions';
+import { projectStory } from '#shared/public-site';
 import type { LoadDeps } from '~~/modules/cv-content/load';
 import { loadContent } from '~~/modules/cv-content/load';
 
@@ -15,12 +16,23 @@ const deps: LoadDeps = {
 };
 
 describe('content rules', () => {
-  it('keeps Team Lead and Full-stack out of the headline texts', async () => {
-    const cv = await loadContent(dir, deps);
-    const headline = [cv.profile.title, cv.profile.description, cv.about.body].join('\n');
-    expect(headline).not.toContain('Team Lead');
-    const titles = cv.experience.flatMap(entry => entry.roles.map(role => role.title));
-    expect(titles.join('\n')).not.toMatch(/full[- ]stack/i);
+  it('keeps Team Lead out of the headline texts', async () => {
+    const { profile, about } = await loadContent(dir, deps);
+    const headline = [
+      profile.title,
+      profile.tagline ?? '',
+      profile.summary,
+      profile.description,
+      about.body,
+    ].join('\n');
+    expect(headline).not.toMatch(/team lead/i);
+  });
+
+  // This rule reads the résumé sections. It does not read the projects and the dotfiles.
+  it('keeps the Full-stack label out of the résumé content', async () => {
+    const { profile, about, skills, education, experience } = await loadContent(dir, deps);
+    const text = JSON.stringify({ profile, about, skills, education, experience });
+    expect(text).not.toMatch(/full[- ]?stack/i);
   });
 
   it('has no design-pattern name-dropping in highlights', async () => {
@@ -68,5 +80,11 @@ describe('content rules', () => {
     const cv = await loadContent(dir, deps);
     const orders = cv.experience.map(e => e.order);
     expect(orders).toEqual([...orders].sort((a, b) => a - b));
+  });
+
+  it('has a written story for each project', async () => {
+    const cv = await loadContent(dir, deps);
+    for (const project of cv.projects)
+      expect(projectStory(project).sections, project.slug).toHaveLength(3);
   });
 });

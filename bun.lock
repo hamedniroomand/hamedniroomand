@@ -16,6 +16,7 @@
         "@commitlint/config-conventional": "^21.2.4",
         "@fontsource-variable/geist": "^5.3.0",
         "@fontsource-variable/jetbrains-mono": "^5.3.0",
+        "@fontsource/old-standard-tt": "^5.3.0",
         "@playwright/test": "^1.65.1",
         "@types/bun": "^1.4.4",
         "@vitest/coverage-v8": "5.1.0",
@@ -108,6 +109,8 @@
     "@fontsource-variable/geist": ["@fontsource-variable/geist@5.3.0", "", {}, "sha512-j0m+vLQuG5XAYoHtGCVu0spvlGreR3EzpECUVzkFmI1mTVnAO38l/NEPDCFgZ177JxzYJCLSmTQibIiYPilGrA=="],
 
     "@fontsource-variable/jetbrains-mono": ["@fontsource-variable/jetbrains-mono@5.3.0", "", {}, "sha512-F32xpS2NsGYoQi2ADSkKTgpJj7ozajsGgDJ8woTnqjmIB+dxDIqImjl4pXZVEExu8UFZ2ndhmX18EBS/hdz3Lw=="],
+
+    "@fontsource/old-standard-tt": ["@fontsource/old-standard-tt@5.3.0", "", {}, "sha512-9cXU8XWqw4Pz9/9Lf6Otf1GPc0y17d96/nP9tzs4PLlq1IFMIxXszL3OLldaoyAn5YGr1r+tIXr0rlbgIeCYrg=="],
 
     "@jridgewell/gen-mapping": ["@jridgewell/gen-mapping@0.3.13", "", { "dependencies": { "@jridgewell/sourcemap-codec": "^1.5.0", "@jridgewell/trace-mapping": "^0.3.24" } }, "sha512-2kkt/7niJ6MgEPxF0bYdQ6etZaA+fQvDcLKckhy1yIQOzaoKjBBjSj63/aLVjYE3qhRt5dvM+uUyfCg6UKCBbA=="],
 

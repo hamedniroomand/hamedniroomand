@@ -8,6 +8,8 @@ export const ProjectFrontmatter = z
     name: z.string().min(1),
     order: z.number().int(),
     client: z.string().min(1).optional(),
+    /** A freelance client has no entry in the work history. */
+    freelance: z.boolean().optional(),
     live: z
       .array(
         z.strictObject({
@@ -49,6 +51,10 @@ export const ProjectFrontmatter = z
   .refine(value => value.client !== undefined || value.repo !== undefined, {
     message: 'a project needs a client or a public repo',
     path: ['client'],
+  })
+  .refine(value => !value.freelance || value.client !== undefined, {
+    message: 'a freelance project needs a client',
+    path: ['freelance'],
   });
 
 export const ProjectSchema = ProjectFrontmatter.safeExtend({

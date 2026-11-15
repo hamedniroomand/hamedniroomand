@@ -39,7 +39,7 @@ const SHOTS: Shot[] = [
   },
   {
     file: 'waverune-demo.webp',
-    url: 'https://hamedniroomand.github.io/waverune/',
+    url: 'https://waverune.kitdev.space/',
     async prepare(page) {
       // The demo stores its theme itself and defaults to light. The site's cards are dark.
       await page.evaluate(() => {
@@ -144,18 +144,18 @@ function placeholderHtml(placeholder: Placeholder): string {
   body {
     width: ${WIDTH}px; height: ${HEIGHT}px; box-sizing: border-box; padding: 64px 72px;
     display: flex; flex-direction: column; justify-content: space-between;
-    background: #151615; color: #eeeae2;
+    background: #0c2547; color: #eef3fb;
     background-image: radial-gradient(circle at 1px 1px, rgb(238 234 226 / 9%) 1px, transparent 0);
     background-size: 34px 34px;
     font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   }
   .bar { display: flex; align-items: center; gap: 12px; font-size: 20px; color: #a3a59d; }
-  .dot { width: 10px; height: 10px; border-radius: 50%; background: #dcb66d; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; background: #ffd24a; }
   h1 { margin: 0; font-size: 54px; font-weight: 500; letter-spacing: -2px;
        font-family: system-ui, sans-serif; }
   p { margin: 18px 0 0; font-size: 22px; color: #a3a59d; }
   .prompt { font-size: 22px; color: #a3a59d; }
-  .prompt b { color: #dcb66d; font-weight: 400; }
+  .prompt b { color: #ffd24a; font-weight: 400; }
 </style>
 <div class="bar"><i class="dot"></i>${placeholder.label}</div>
 <div><h1>${placeholder.title}</h1><p>${placeholder.note}</p></div>

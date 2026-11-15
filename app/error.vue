@@ -4,12 +4,12 @@
 
   const COPY = {
     missing: {
-      eyebrow: 'NOT FOUND',
+      eyebrow: 'Not found',
       title: 'A little off the path.',
       lede: 'This page doesn’t live here. There’s still plenty to explore on the homepage.',
     },
     failed: {
-      eyebrow: 'SOMETHING WENT WRONG',
+      eyebrow: 'Something went wrong',
       title: 'That didn’t go to plan.',
       lede: 'Try again in a moment, or head back home.',
     },
@@ -18,14 +18,14 @@
   const props = defineProps<{ error: NuxtError }>();
   const route = useRoute();
   const host = siteHost(useRuntimeConfig().public.siteUrl);
-  const copy = computed(() => (props.error.statusCode === 404 ? COPY.missing : COPY.failed));
+  const copy = computed(() => (props.error.status === 404 ? COPY.missing : COPY.failed));
 </script>
 
 <template>
   <main class="error-page">
-    <p class="error-page__brand"><BrandMark />hamed <span>/ niroomand.dev</span></p>
+    <p class="error-page__brand"><BrandMark />Hamed Niroomand</p>
     <div class="error-page__content">
-      <p class="eyebrow">{{ error.statusCode }} / {{ copy.eyebrow }}</p>
+      <p class="eyebrow">{{ error.status }} / {{ copy.eyebrow }}</p>
       <h1>{{ copy.title }}</h1>
       <p class="error-page__lede">{{ copy.lede }}</p>
       <p class="error-page__prompt">hamed@{{ host }}:~$ open {{ route.fullPath }}</p>
@@ -33,13 +33,13 @@
         class="btn"
         href="/"
         @click.prevent="clearError({ redirect: '/' })"
-        >← Back to home</a
+        >Back to home</a
       >
     </div>
     <span
       class="error-page__code"
       aria-hidden="true"
-      >{{ error.statusCode }}</span
+      >{{ error.status }}</span
     >
   </main>
 </template>
@@ -58,25 +58,20 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    font: var(--text-xs) var(--font-mono);
+    font: 400 1.25rem / 1 var(--font-display);
   }
   .error-page__brand .brand-mark {
-    width: 26px;
-    height: 26px;
-  }
-  .error-page__brand span {
-    color: var(--fg-dim);
+    width: 28px;
+    height: 28px;
   }
   .error-page__content {
     max-width: 610px;
     padding: clamp(80px, 16vh, 180px) 0;
   }
   h1 {
-    font-size: clamp(40px, 6vw, 66px);
-    line-height: 1.1;
-    letter-spacing: -2px;
-    font-weight: 500;
-    margin: 22px 0;
+    margin: 18px 0 22px;
+    font: 400 var(--display-lg) / 1.02 var(--font-display);
+    letter-spacing: var(--tracking-display);
   }
   .error-page__lede {
     color: var(--fg-dim);
@@ -94,8 +89,8 @@
     z-index: var(--z-decoration);
     right: 0;
     bottom: 0;
-    font: clamp(150px, 30vw, 380px) var(--font-mono);
+    font: 400 clamp(150px, 30vw, 380px) / 0.8 var(--font-display);
     color: var(--border);
-    opacity: 0.5;
+    opacity: 0.6;
   }
 </style>

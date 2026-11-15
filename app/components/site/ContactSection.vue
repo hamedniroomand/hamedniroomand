@@ -45,11 +45,10 @@
 <template>
   <section
     id="contact"
-    class="contact-section"
+    class="home-section contact-section"
     aria-labelledby="contact-section-title"
   >
     <div class="contact-intro">
-      <p class="eyebrow">Contact</p>
       <h2 id="contact-section-title">Say hello.</h2>
       <p>
         Hiring, a project, or a question about one of my tools. Send a message here, or use email or

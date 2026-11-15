@@ -40,22 +40,40 @@ describe('loadContent', () => {
       'xaankoo',
     ]);
     expect(cv.experience[0]!.highlights.map(h => h.slug)).toEqual([
-      'team-lead',
-      'design-system',
+      'nuxt-migration',
+      'nuxt-layers',
+      'hydration',
       'micro-frontends',
+      'chrome-extension',
+      'design-system',
       'learning-products',
       'ai-tutor',
+      'api-contracts',
+      'team-lead',
+      'hiring',
       'engineering-standards',
+    ]);
+    expect(cv.experience[1]!.highlights.map(h => h.slug)).toEqual([
+      'portfolio-tracker',
+      'integration-layer',
+      'maintenance',
+      'resource-management',
+      'mcp-server',
     ]);
     expect(cv.projects.map(p => p.slug)).toEqual([
       'jack-westin',
-      'cue',
-      'edgefit',
       'layerscope',
+      'edgefit',
+      'cue',
       'kitdev',
+      'vaporfit',
+      'action-wire',
+      'codepic',
+      'webhooky',
       'masir',
       'waverune',
       'cpm',
+      'diba-art-studio',
     ]);
     expect(cv.projects[0]!.readmeSource).toBe('fallback');
     expect(cv.skills.categories.length).toBeGreaterThan(3);
@@ -82,12 +100,16 @@ describe('loadContent', () => {
       }),
     );
     expect(asked).toEqual([
+      'hamedniroomand/action-wire',
+      'hamedniroomand/codepic',
       'hamedniroomand/cue',
       'hamedniroomand/edgefit',
       'hamedniroomand/kitdev-space',
       'hamedniroomand/nuxt-layerscope',
       'hamedniroomand/masir',
+      'hamedniroomand/vaporfit',
       'hamedniroomand/waverune',
+      'hamedniroomand/webhooky',
     ]);
     const kitdev = cv.projects.find(p => p.slug === 'kitdev')!;
     expect(kitdev.repo).toBe('hamedniroomand/kitdev-space');
@@ -101,6 +123,44 @@ describe('loadContent', () => {
     await writeFile(
       join(tmp, 'projects', 'kitdev.md'),
       '---\nname: KitDev Space\norder: 3\nclient: nobody\nsite: https://kitdev.space\ntagline: Tools.\nstack: []\n---\n',
+    );
+    await expect(loadContent(tmp, deps())).rejects.toThrow(
+      /client "nobody" matches no experience entry/,
+    );
+    await rm(tmp, { recursive: true, force: true });
+  });
+
+  it('accepts a freelance client that has no experience entry', async () => {
+    const tmp = await contentCopy();
+    await writeFile(
+      join(tmp, 'projects', 'kitdev.md'),
+      '---\nname: KitDev Space\norder: 3\nclient: nobody\nfreelance: true\nsite: https://kitdev.space\ntagline: Tools.\nstack: []\n---\n',
+    );
+    const cv = await loadContent(tmp, deps());
+    expect(cv.projects.find(p => p.slug === 'kitdev')).toMatchObject({
+      client: 'nobody',
+      freelance: true,
+    });
+    await rm(tmp, { recursive: true, force: true });
+  });
+
+  it('rejects a freelance client that is also an experience entry', async () => {
+    const tmp = await contentCopy();
+    await writeFile(
+      join(tmp, 'projects', 'kitdev.md'),
+      '---\nname: KitDev Space\norder: 3\nclient: thales\nfreelance: true\nsite: https://kitdev.space\ntagline: Tools.\nstack: []\n---\n',
+    );
+    await expect(loadContent(tmp, deps())).rejects.toThrow(
+      /client "thales" is an experience entry, so the project cannot be freelance/,
+    );
+    await rm(tmp, { recursive: true, force: true });
+  });
+
+  it('rejects an unknown client when freelance is false', async () => {
+    const tmp = await contentCopy();
+    await writeFile(
+      join(tmp, 'projects', 'kitdev.md'),
+      '---\nname: KitDev Space\norder: 3\nclient: nobody\nfreelance: false\nsite: https://kitdev.space\ntagline: Tools.\nstack: []\n---\n',
     );
     await expect(loadContent(tmp, deps())).rejects.toThrow(
       /client "nobody" matches no experience entry/,
@@ -125,11 +185,15 @@ describe('loadContent', () => {
       }),
     );
     expect(asked).toEqual([
+      'hamedniroomand/action-wire',
+      'hamedniroomand/codepic',
       'hamedniroomand/cue',
       'hamedniroomand/edgefit',
       'hamedniroomand/nuxt-layerscope',
       'hamedniroomand/masir',
+      'hamedniroomand/vaporfit',
       'hamedniroomand/waverune',
+      'hamedniroomand/webhooky',
     ]);
     const kitdev = cv.projects.find(p => p.slug === 'kitdev')!;
     expect(kitdev.repo).toBeUndefined();
@@ -152,9 +216,11 @@ describe('loadContent', () => {
     );
     // Only the own projects with a site are asked, in file order. Client sites are not.
     expect(asked).toEqual([
+      'https://codepic.kitdev.space/',
       'https://kitdev.space',
       'https://masir.dev',
-      'https://hamedniroomand.github.io/waverune/',
+      'https://waverune.kitdev.space/',
+      'https://webhooky.kitdev.space/',
     ]);
     const kitdev = cv.projects.find(p => p.slug === 'kitdev')!;
     expect(kitdev.tools).toEqual({

@@ -8,7 +8,7 @@ export interface ProjectStory {
 const STORIES: Record<string, ProjectStory> = {
   'jack-westin': {
     category: 'Client work / EdTech',
-    headline: 'Study tools behind 500K+ student accounts.',
+    headline: 'Study tools behind 500K+ registered accounts.',
     introduction:
       'For more than four years I worked on the frontend of Jack Westin, a US MCAT-prep platform, and led the frontend team for most of that time. A few of the products: practice exams, flashcards, an AI tutor, and the design system behind them. Most of them are free to try.',
     sections: [
@@ -28,13 +28,13 @@ const STORIES: Record<string, ProjectStory> = {
   },
   cpm: {
     category: 'Client work / Asset management',
-    headline: 'One book for every customer.',
+    headline: 'One book for every client.',
     introduction:
-      'A private platform for Thales asset managers. Connect a customer’s exchanges, brokers, and wallets, then watch positions, orders, and risk in one place.',
+      'A private platform for Thales asset managers. Connect a client’s exchanges, brokers, and wallets, then watch positions, orders, and risk in one place.',
     sections: [
       {
         title: 'Every venue in one account',
-        body: 'Operators attach exchange API keys, MT5 broker accounts, and wallet addresses. Scanners sync spot, futures, and options from Binance, Bybit, Deribit, Coinbase, Kraken, and more, and read wallets on Bitcoin, EVM chains, Solana, Polkadot, Sui, TON, Tron, and XRP.',
+        body: 'Asset managers attach exchange API keys, MT5 broker accounts, and wallet addresses. Scanners sync spot, futures, and options from Binance, Bybit, Deribit, Coinbase, Kraken, and more, and read wallets on Bitcoin, EVM chains, Solana, Polkadot, Sui, TON, Tron, and XRP.',
       },
       {
         title: 'Live positions, orders, and risk',
@@ -42,7 +42,27 @@ const STORIES: Record<string, ProjectStory> = {
       },
       {
         title: 'A private product, end to end',
-        body: 'Nuxt in the browser, NestJS on Bun behind it, PostgreSQL and TimescaleDB for the book, and a Telegram bot for login and alerts. The source stays private. The company site is the public face.',
+        body: 'Nuxt in the browser, Hono on Bun behind it, PostgreSQL and TimescaleDB for the book, and a Telegram bot for login and alerts. The source stays private. The company site is the public face.',
+      },
+    ],
+  },
+  'diba-art-studio': {
+    category: 'Client work / E-commerce',
+    headline: 'Original paintings, shown at real scale.',
+    introduction:
+      'A custom Shopify theme for Diba Art Studio, a studio that sells original paintings online. I built the storefront as a freelance project: the home page, the collections with filters, the product page, the cart and the text pages, in English and Norwegian. The shop is not open to the public yet, so its address shows a password page.',
+    sections: [
+      {
+        title: 'A product page for a work that exists one time',
+        body: 'An original has one copy, so the page has no size or quantity to select. A sold painting stays in the shop with a Sold badge, its buy button turns off, and a link offers a commission of a similar piece. Each page also has a link that opens the contact form with the title of the work filled in.',
+      },
+      {
+        title: 'The painting at real scale',
+        body: 'The gallery draws each painting next to a person 170 cm tall, as one SVG in centimetre units that Liquid computes from the width and height of the canvas. A second tab shows photos of the work in a room, and a zoom dialog opens the large image. The sizes are product metafields, so the owner types two numbers and the view appears.',
+      },
+      {
+        title: 'A shop the owner changes without code',
+        body: 'I wrote the theme on top of the Shopify Skeleton theme: Liquid sections, plain CSS and one TypeScript bundle that Vite builds, with GSAP for the scroll motion. The fixed interface text comes from locale files, and the home page text and images are settings in the theme editor, so text, images and works change in the Shopify admin. The shop stays usable without JavaScript and respects the reduced-motion setting. The source is private.',
       },
     ],
   },
@@ -150,7 +170,7 @@ const STORIES: Record<string, ProjectStory> = {
     category: 'Open source / Web app',
     headline: 'Short links your team owns.',
     introduction:
-      'Masir turns long URLs into short ones on your own domain, and keeps them under your control after you share them. It is self-hosted, with workspaces, access control and analytics that do not track visitors.',
+      'Masir turns long URLs into short ones on your own domain, and keeps them under your control after you share them. It is self-hosted, with a team workspace, access control and analytics that do not track visitors.',
     sections: [
       {
         title: 'The short URL stays, the destination can change',
@@ -158,11 +178,91 @@ const STORIES: Record<string, ProjectStory> = {
       },
       {
         title: 'Built for teams',
-        body: 'Links belong to a workspace, with owner, member and viewer roles. One link can send iOS, Android, desktop or a country to a different place, and tags and UTM values keep campaigns together.',
+        body: 'Links belong to the team workspace, with owner, member and viewer roles. One link can send iOS, Android, desktop or a country to a different place, and tags and UTM values keep campaigns together.',
       },
       {
         title: 'Analytics without tracking',
-        body: 'Masir counts clicks, unique visitors, referrers, countries and devices, and counts bots separately. It stores no IP addresses, no user agents and no visitor cookies. It runs as a Docker image with Postgres, on one domain or a subdomain for each workspace.',
+        body: 'Masir counts clicks, unique visitors, referrers, countries and devices, and counts bots separately. It stores no IP addresses, no user agents and no visitor cookies. It runs as a Docker image with Postgres: one install, one team, on your own domain.',
+      },
+    ],
+  },
+  vaporfit: {
+    category: 'Open source / CLI',
+    headline: 'See what Vapor mode breaks before you convert.',
+    introduction:
+      'Vue 3.6 compiles a component without the virtual DOM when you add one attribute. Not every feature and library works there yet, and the worst failures give no error. vaporfit reads the project and tells you which components are safe to convert, which are not, and why.',
+    sections: [
+      {
+        title: 'Failures that give no error',
+        body: 'With as-child from Reka UI and Vue 3.6.0-rc.14 or older, a Vapor button gets no attributes and no click listener, and Vue prints no warning. vaporfit shows the file, the line, the rule and the Vue version that fixes the problem. A cause that is two wrappers away shows at your page, with the chain to the library.',
+      },
+      {
+        title: 'Evidence behind each claim',
+        body: 'The data covers 25 Vue libraries, among them Reka UI, Element Plus, PrimeVue, Vuetify, Pinia and VueUse. Each row comes from a probe that runs in a real browser, a statement from the maintainers or an issue link. When the data does not prove a problem, the verdict is unknown, not ready.',
+      },
+      {
+        title: 'A plan for the migration',
+        body: 'Each component gets one verdict for an app that mixes Vapor and virtual DOM components, and one for a pure Vapor app. The report ranks the rules that hold back the most components and gives an order that starts with the leaves. fix --write adds vapor to each component that is ready.',
+      },
+    ],
+  },
+  'action-wire': {
+    category: 'Open source / Library',
+    headline: 'An assistant that uses the tools your page already has.',
+    introduction:
+      'A page that registers tools with WebMCP has already described what it can do. Action Wire is a text assistant widget that discovers those tools and runs them, so you do not define them a second time for the agent.',
+    sections: [
+      {
+        title: 'The page owns the tools',
+        body: 'The application keeps the tool schemas and the handlers. The assistant reads what the page registered and calls it. Voice is out of scope, and the assistant does not keep conversation history across sessions.',
+      },
+      {
+        title: 'One package, with or without an interface',
+        body: 'createAssistant mounts the widget. createAgentBridge is the same runtime with no interface. The package is ESM only, and its one runtime dependency validates tool input without eval, so the widget works under a strict Content-Security-Policy. Examples cover a vanilla page, React, Vue and Svelte.',
+      },
+      {
+        title: 'Keys stay on the server',
+        body: 'The model adapter talks to an OpenAI-compatible endpoint that you operate, so no API key goes into browser code. The widget needs a secure browser context with native WebMCP. The verified environment is Chromium 153 with the experimental web platform features flag.',
+      },
+    ],
+  },
+  codepic: {
+    category: 'Open source / Web app',
+    headline: 'Code screenshots that never leave the browser.',
+    introduction:
+      'Paste a snippet, pick a look, and get a clean image for a post, a slide or a pull request. CodePic has no accounts and no server. The highlighting, the layout and the export all run on your machine.',
+    sections: [
+      {
+        title: 'Private because there is no backend',
+        body: 'The code is not uploaded, stored or logged, because there is no server to send it to. Only the look of the card stays between visits, never the code in it. After the first visit, the app loads and exports offline.',
+      },
+      {
+        title: 'Point at the line that matters',
+        body: 'Click a line number to highlight it, and the rest of the code fades back. Click again to mark a line as added or removed for a diff view. Box or underline part of a line and add a short note. One image holds up to three code panels.',
+      },
+      {
+        title: 'More than a PNG',
+        body: 'Export a PNG, an SVG, an animated GIF or an MP4 video, or copy a link that carries the code and the settings in the URL. Any page can open CodePic with the options filled in from a link, and a command line tool draws the same image without a browser.',
+      },
+    ],
+  },
+  webhooky: {
+    category: 'Open source / Web app',
+    headline: 'A webhook URL you can watch.',
+    introduction:
+      'Open the app and you get a webhook URL. Send requests to it and inspect each one: the headers, the query parameters, the body and the raw HTTP text. No account is required.',
+    sections: [
+      {
+        title: 'A live request feed',
+        body: 'Requests appear as they arrive, over Server-Sent Events. Webhooky captures GET, POST, PUT, PATCH and DELETE, including nested paths, and shows JSON, forms, XML and plain text. An HTML payload renders as text.',
+      },
+      {
+        title: 'Temporary on purpose',
+        body: 'An inbox lasts 24 hours and keeps the latest 100 requests. A stored body can be up to 1 MiB, and capture is limited to 120 requests per minute for each token.',
+      },
+      {
+        title: 'Only the owner reads the inbox',
+        body: 'The webhook URL lets a sender submit requests and nothing else. Reading and deleting captured requests needs the browser session that owns the inbox. The app does not record the client IP address and strips common proxy IP headers.',
       },
     ],
   },

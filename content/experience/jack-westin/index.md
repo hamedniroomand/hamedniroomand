@@ -19,10 +19,12 @@ stack:
   - Laravel
   - AI SDK
 summary: >-
-  US MCAT-prep e-learning platform. Built the Vue and Nuxt learning products, an AI chat tutor, and the shared design system behind four apps.
+  US MCAT-prep e-learning platform. Ran the Nuxt 2 to Nuxt 4 migration with no downtime and built the learning products, an AI chat tutor, and the shared design system behind four apps.
 order: 1
 ---
 
-Jack Westin is a US MCAT-prep e-learning platform serving thousands of daily active students. I joined as a senior frontend developer, shipped core Vue / Nuxt features and introduced the component patterns and testing practices the team later adopted as standards, and became the frontend team lead eight months later, leading a team of five on Vue 3 / Nuxt 4 applications.
+Jack Westin is a US MCAT-prep e-learning platform with 500K+ registered accounts, a Vue 3 / Nuxt frontend over several backend APIs. I joined as a senior frontend developer, shipped core Vue / Nuxt features and introduced the component patterns and testing practices the team later adopted as standards, and became the frontend team lead eight months later, leading a team of five.
 
-As team lead I owned frontend architecture, technical strategy, and delivery planning; designed REST API contracts with the backend lead before implementation; broke PRDs into phased technical tasks; and ran frontend hiring end to end (screened 40+ candidates, made 3 hires). I architected the core learning products and an AI chat tutor, owned the shared design-system and core-logic library that four projects consume, delivered product UI to marketing through micro-frontends on WordPress, and established the code-review, testing, and CI/CD standards the team works by.
+On the engineering side I planned and ran the migration from Nuxt 2 to Nuxt 4 section by section, with both apps live and no downtime, structured the app with Nuxt layers so one frontend works with four independent backends, and built framework-agnostic web components that deliver the same features to four different hosts. I led the rewrite of the Chrome extension in Vue 3 and TypeScript, built the shared design-system and core-logic library that four applications use, and built the core learning products, the Stripe checkout, and an AI chat tutor.
+
+As team lead I owned architecture decisions and code review; designed REST API contracts with the backend lead before implementation; turned PRDs into technical tasks and phased milestones; and ran frontend hiring (interviewed 40+ candidates, made 3 hires). I also set the code-review, testing, and CI/CD standards the team works by.

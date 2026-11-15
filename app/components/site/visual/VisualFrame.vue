@@ -24,12 +24,12 @@
     --visual-surface: color-mix(in srgb, var(--surface-page) 75%, var(--surface-raised));
     --visual-line: color-mix(in srgb, var(--accent) 12%, var(--border-subtle));
     --visual-ink: var(--text-muted);
-    --visual-radius: 16px;
-    --visual-radius-sm: 10px;
-    background-image: radial-gradient(
-      ellipse at 72% 38%,
-      color-mix(in srgb, var(--accent) 5%, transparent),
-      transparent 65%
-    );
+    --visual-radius: 8px;
+    --visual-radius-sm: 4px;
+    --visual-paper: color-mix(in srgb, var(--fg) 4%, transparent);
+    background-image:
+      linear-gradient(var(--visual-paper) 1px, transparent 1px),
+      linear-gradient(90deg, var(--visual-paper) 1px, transparent 1px);
+    background-size: 16px 16px;
   }
 </style>

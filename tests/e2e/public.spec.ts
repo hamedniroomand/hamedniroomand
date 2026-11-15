@@ -4,7 +4,7 @@ test('the hero says who Hamed is and how to reach him', async ({ page }) => {
   await page.goto('/');
   const hero = page.locator('.home-hero');
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Hamed Niroomand.');
-  await expect(hero).toContainText('Senior Web Developer');
+  await expect(hero).toContainText('Senior Frontend Engineer');
   await expect(hero).not.toContainText('Team Lead');
   await expect(hero.getByRole('link', { name: 'Get in touch' })).toHaveAttribute(
     'href',
@@ -21,6 +21,36 @@ test('the hero says who Hamed is and how to reach him', async ({ page }) => {
   await expect(page.getByLabel('Terminal input')).toHaveCount(0);
 });
 
+test('the hero command reads the résumé from this site', async ({ page, isMobile }) => {
+  test.skip(isMobile, 'a phone hides the command');
+  await page.goto('/');
+  const command = page.locator('.hero-command code');
+  await expect(command).toHaveText('curl http://localhost:3457/api/cv');
+  // The whole command shows: nothing cuts it.
+  expect(await command.evaluate(code => code.scrollWidth <= code.clientWidth)).toBe(true);
+});
+
+test('the statement and the measured results follow the hero', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.locator('#about')).toContainText('I build server-rendered apps that load fast');
+  const results = page.locator('#results');
+  await expect(results.getByRole('heading', { level: 2 })).toHaveText('Measured results');
+  await expect(results).toContainText('Before: 36');
+  await expect(results).toContainText('After: 97');
+});
+
+test('public pages fit a tablet in portrait', async ({ page, isMobile }) => {
+  test.skip(isMobile, 'the tablet width is set from the desktop project');
+  await page.setViewportSize({ width: 744, height: 1000 });
+  for (const path of ['/', '/projects', '/projects/cue', '/dotfiles']) {
+    await page.goto(path);
+    expect(
+      await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth),
+      path,
+    ).toBe(true);
+  }
+});
+
 test('the nav reaches every part and the footer keeps the extras', async ({ page }) => {
   await page.goto('/');
   const nav = page.getByRole('navigation', { name: 'Main navigation' });
@@ -29,17 +59,17 @@ test('the nav reaches every part and the footer keeps the extras', async ({ page
   const footer = page.locator('.site-footer');
   await expect(footer).not.toHaveAttribute('id', 'contact');
   await expect(footer.getByRole('link', { name: 'Dotfiles', exact: true })).toBeVisible();
-  await expect(footer.getByRole('link', { name: 'LinkedIn ↗' })).toBeVisible();
+  await expect(footer.getByRole('link', { name: 'LinkedIn', exact: true })).toBeVisible();
   await footer.getByRole('link', { name: /Dotfiles/ }).click();
   await expect(page).toHaveURL(/\/dotfiles$/);
 });
 
-test('the home page goes hero, experience, projects, contact', async ({ page }) => {
+test('the home page goes hero, about, results, experience, projects, contact', async ({ page }) => {
   await page.goto('/');
   const ids = await page
     .locator('.home-page > section')
     .evaluateAll(sections => sections.map(section => section.id));
-  expect(ids).toEqual(['top', 'experience', 'projects', 'contact']);
+  expect(ids).toEqual(['top', 'about', 'results', 'experience', 'projects', 'contact']);
   await expect(page.getByRole('heading', { name: /Make yourself/ })).toHaveCount(0);
 });
 
@@ -47,10 +77,10 @@ test('the home page shows client work apart from open source', async ({ page }) 
   await page.goto('/');
   const client = page.locator('section[aria-labelledby="client-work"] .project-card');
   const open = page.locator('section[aria-labelledby="open-source"] .project-card');
-  await expect(client).toHaveCount(2);
+  await expect(client).toHaveCount(3);
   await expect(client.first()).toHaveAttribute('id', 'project-jack-westin');
   await expect(page.locator('#project-cpm')).toBeVisible();
-  await expect(open).toHaveCount(6);
+  await expect(open).toHaveCount(10);
   await page.getByRole('link', { name: 'Explore Jack Westin' }).click();
   await expect(page).toHaveURL(/\/projects\/jack-westin$/);
   await expect(page.getByRole('link', { name: /Flashcards/ })).toHaveAttribute(
@@ -80,7 +110,7 @@ test('public terminal opens on demand and closes with focus restored', async ({ 
   const input = page.getByLabel('Terminal input');
   await expect(input).toBeVisible();
   await expect(page.getByRole('log')).toContainText('projects');
-  await expect(page.getByRole('log')).not.toContainText('Senior Web Developer');
+  await expect(page.getByRole('log')).not.toContainText('Senior Frontend Engineer');
   await input.fill('ls experience');
   await input.press('Enter');
   await expect(page.getByRole('log')).toContainText('jack-westin.md');
@@ -97,12 +127,17 @@ test('public pages fit the viewport and keep the main navigation', async ({ page
     '/projects',
     '/projects/cpm',
     '/projects/jack-westin',
+    '/projects/diba-art-studio',
     '/projects/cue',
     '/projects/waverune',
     '/projects/kitdev',
     '/projects/edgefit',
     '/projects/layerscope',
     '/projects/masir',
+    '/projects/vaporfit',
+    '/projects/codepic',
+    '/projects/action-wire',
+    '/projects/webhooky',
     '/dotfiles',
     '/dotfiles/vscode-settings',
   ]) {
@@ -153,7 +188,7 @@ test('the public terminal explores without moving the page', async ({ page }) =>
 test('the work history shows titles and links client work', async ({ page }) => {
   await page.goto('/');
   const section = page.locator('#experience');
-  await expect(section).toContainText('Frontend Team Lead · Senior Frontend Developer');
+  await expect(section).toContainText('Frontend Team Lead, Senior Frontend Developer');
   await expect(section).toContainText('Technical Consultant & Software Engineer');
   await expect(section).not.toContainText(/full[- ]stack/i);
   await expect(page.locator('.home-hero')).not.toContainText('Team Lead');

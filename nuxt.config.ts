@@ -95,7 +95,7 @@ export default defineNuxtConfig({
       htmlAttrs: { lang: 'en' },
       meta: [
         { name: 'color-scheme', content: 'dark light' },
-        { name: 'theme-color', content: '#151615' },
+        { name: 'theme-color', content: '#0c2547' },
       ],
       link: [
         { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' },
