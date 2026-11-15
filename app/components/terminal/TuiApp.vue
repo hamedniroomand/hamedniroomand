@@ -193,7 +193,7 @@
     view.print('/projects   /dotfiles   /theme   /contact', 'dim');
   } else {
     view.print('Welcome. Try /experience to browse companies, /skills for the stack,');
-    view.print('or /pdf to grab the one-pager.');
+    view.print('or /pdf to get the PDF résumé.');
   }
 
   function onWindowKeydown(event: KeyboardEvent): void {

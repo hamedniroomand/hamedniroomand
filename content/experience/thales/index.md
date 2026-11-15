@@ -14,10 +14,10 @@ stack:
   - NestJS
   - Hono
 summary: >-
-  Crypto asset-management company. Built a real-time portfolio tracker across 16 blockchains and 12 exchanges, a resource-management system, and a private MCP server.
+  Crypto asset-management company. Sole developer of a real-time portfolio tracker across 16 blockchains and 12 exchanges. Also built a resource-management system and a private MCP server.
 order: 2
 ---
 
-Thales MFI is a crypto asset-management company in Germany. I worked with them part-time and remotely, concurrent with Jack Westin — first as a technical advisor, then as QA lead, then contracted to build products end to end.
+Thales MFI is a crypto asset-management company in Germany. I worked with them part-time and remotely, concurrent with Jack Westin — first as a technical advisor, then as QA lead, then contracted to build and run their products.
 
-Over that period I built three systems: a real-time crypto portfolio tracker across 16 blockchains and 12 exchanges, a project resource-management system, and a private MCP server for the CTO's AI agents. I also advised the engineering team on frontend architecture, state management, and critical bug resolution, and served as release quality gatekeeper for manual, API-level, and UX validation.
+Over that period I built three systems: a real-time crypto portfolio tracker across 16 blockchains and 12 exchanges, a project resource-management system, and a private MCP server for the CTO's AI agents. I designed, built, and shipped the portfolio tracker as the sole developer and kept it running in production for two years. I also advised the engineering team on frontend architecture, state management, and critical bug resolution, and served as release quality gatekeeper for manual, API-level, and UX validation.

@@ -1,8 +1,8 @@
 ---
 name: WaveRune
-order: 6
+order: 10
 repo: hamedniroomand/waverune
-site: https://hamedniroomand.github.io/waverune/
+site: https://waverune.kitdev.space/
 tagline: Blind audio watermarking for WAV files in Node.js, Bun, and the browser.
 stack:
   - TypeScript
@@ -13,7 +13,7 @@ screenshots:
   - src: /screenshots/waverune-demo.webp
     alt: The WaveRune browser demo. A drop zone for a WAV file, a key field, and Embed and Detect actions.
     caption: The browser demo embeds and detects a watermark locally. Nothing is uploaded.
-    frame: hamedniroomand.github.io/waverune
+    frame: waverune.kitdev.space
     width: 2880
     height: 1620
 ---

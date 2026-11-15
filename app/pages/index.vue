@@ -1,23 +1,23 @@
 <script setup lang="ts">
   const { projects, experience } = useCv();
   usePublicSeo(
-    'Hamed Niroomand — Senior Web Developer',
-    'Senior web developer with 7+ years in Vue, Nuxt and TypeScript. Projects, work history and a way to get in touch.',
+    'Hamed Niroomand — Senior Frontend Engineer',
+    'Senior frontend engineer with 7+ years in Vue, Nuxt and TypeScript. Measured results, work history, projects and a way to get in touch.',
   );
 </script>
 
 <template>
   <div class="home-page">
     <HomeHero />
+    <HomeStatement />
+    <MeasuredResults />
     <section
       id="experience"
-      class="work-section"
+      class="home-section"
       aria-labelledby="work-title"
     >
       <div class="section-heading">
-        <div>
-          <h2 id="work-title">Where I&rsquo;ve worked</h2>
-        </div>
+        <h2 id="work-title">Where I&rsquo;ve worked</h2>
       </div>
       <WorkTimeline
         :experience="experience"
@@ -26,7 +26,7 @@
     </section>
     <section
       id="projects"
-      class="projects-section"
+      class="home-section"
       aria-labelledby="projects-title"
     >
       <div class="section-heading">

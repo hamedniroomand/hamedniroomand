@@ -17,30 +17,37 @@ import { DEFAULT_SITE_HOST } from '../shared/site-host.ts';
 
 interface Card {
   file: string;
-  /** The small line above the heading, in capitals. */
+  /** The small line above the heading. */
   eyebrow: string;
   /** The path shown at the right of the eyebrow row. */
   path: string;
   heading: string;
-  /** The second part of the heading. It takes the accent colour. */
+  /** The second part of the heading. It is italic and takes the accent colour. */
   accent: string;
   line: string;
 }
 
 const WIDTH = 1200;
 const HEIGHT = 630;
-const FONT =
-  'node_modules/@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2';
+const FONT_FILES = 'node_modules/@fontsource/old-standard-tt/files';
+const FONTS = {
+  normal: `${FONT_FILES}/old-standard-tt-latin-400-normal.woff2`,
+  italic: `${FONT_FILES}/old-standard-tt-latin-400-italic.woff2`,
+};
 
 /** The dark theme of the site. Keep these values equal to `app/assets/css/themes.css`. */
 const THEME = {
-  bg: '#151615',
-  fg: '#eeeae2',
-  dim: '#a3a59d',
-  accent: '#dcb66d',
-  accent2: '#a0bdb2',
-  border: '#30332e',
+  bg: '#0c2547',
+  fg: '#eef3fb',
+  dim: '#a8bcdb',
+  accent: '#ffd24a',
+  border: '#274a7e',
 };
+
+interface CardFonts {
+  normal: string;
+  italic: string;
+}
 
 function escapeHtml(text: string): string {
   return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -56,7 +63,7 @@ async function projectCards(): Promise<Card[]> {
     const client = project.client !== undefined;
     projectList.push({
       file: `public/${ogCardFile(slug)}`,
-      eyebrow: client ? 'CLIENT WORK' : 'PROJECT',
+      eyebrow: client ? 'Client work' : 'Project',
       path: `~/projects/${slug}`,
       heading: `${project.name}.`,
       accent: project.tagline,
@@ -70,15 +77,15 @@ function cards(profile: Profile): Card[] {
   return [
     {
       file: `public/${ogCardFile('home')}`,
-      eyebrow: 'PERSONAL WEBSITE',
+      eyebrow: 'Personal website',
       path: '~/hamed',
       heading: `${profile.name}.`,
-      accent: 'Senior Web Developer.',
-      line: 'Projects, work history and a way to get in touch.',
+      accent: 'Senior Frontend Engineer.',
+      line: 'Measured results, work history, projects and a way to get in touch.',
     },
     {
       file: `public/${ogCardFile('resume')}`,
-      eyebrow: 'CURRICULUM VITAE',
+      eyebrow: 'Curriculum vitae',
       path: '~/hamed/cv',
       heading: profile.name,
       accent: profile.title,
@@ -86,7 +93,7 @@ function cards(profile: Profile): Card[] {
     },
     {
       file: `public/${ogCardFile('dotfiles')}`,
-      eyebrow: 'BEHIND THE SCENES',
+      eyebrow: 'Behind the scenes',
       path: '~/.config',
       heading: 'Dotfiles.',
       accent: 'Borrow what is useful.',
@@ -98,57 +105,54 @@ function cards(profile: Profile): Card[] {
 /** A long heading needs a smaller size, or it fills the whole card. */
 function headingSize(card: Card): number {
   const longest = Math.max(card.heading.length, card.accent.length);
-  if (longest > 34) return 60;
-  if (longest > 24) return 71;
-  return 82;
+  if (longest > 34) return 62;
+  if (longest > 24) return 76;
+  return 92;
 }
 
-function cardHtml(card: Card, font: string): string {
+function cardHtml(card: Card, fonts: CardFonts): string {
   return `<!doctype html>
 <style>
-  @font-face { font-family: 'JetBrains Mono'; src: url(data:font/woff2;base64,${font}) format('woff2-variations'); font-weight: 100 800; }
+  @font-face { font-family: 'Old Standard TT'; src: url(data:font/woff2;base64,${fonts.normal}) format('woff2'); }
+  @font-face { font-family: 'Old Standard TT'; font-style: italic; src: url(data:font/woff2;base64,${fonts.italic}) format('woff2'); }
   html, body { margin: 0; }
   body {
     position: relative; isolation: isolate; overflow: hidden;
-    width: ${WIDTH}px; height: ${HEIGHT}px; box-sizing: border-box; padding: 68px 84px;
+    width: ${WIDTH}px; height: ${HEIGHT}px; box-sizing: border-box; padding: 64px 84px;
     display: flex; flex-direction: column; justify-content: space-between;
     background: ${THEME.bg}; color: ${THEME.fg};
     font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   }
-  /*
-   * The dot grid that the site draws behind its pages.
-   * The site also draws two pools of accent light, but a card leaves them out.
-   * A browser dithers a large gradient, and the noise makes the PNG 2.5 times larger.
-   * At the size of a link preview the light is not visible, so the card keeps only the grid.
-   */
+  /* The squared paper that the site draws behind its pages. */
   body::before {
     content: ''; position: absolute; z-index: -2; inset: 0;
-    background-image: radial-gradient(circle at 1px 1px, rgb(238 234 226 / 9%) 1px, transparent 0);
-    background-size: 34px 34px;
-    mask-image: radial-gradient(125% 85% at 50% 0%, #000 15%, transparent 78%);
+    background-image:
+      linear-gradient(rgb(238 243 251 / 6%) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(238 243 251 / 6%) 1px, transparent 1px);
+    background-size: 30px 30px;
   }
-  .eyebrow {
-    display: flex; align-items: center; gap: 14px;
-    font: 17px 'JetBrains Mono', monospace; letter-spacing: 2.7px; color: ${THEME.dim};
-  }
-  .dot { width: 10px; height: 10px; border-radius: 50%; background: ${THEME.accent}; }
-  .eyebrow .path { margin-left: auto; letter-spacing: 0; }
-  h1 { margin: 0; font-size: ${headingSize(card)}px; font-weight: 500; letter-spacing: -0.05em; line-height: 1.07; }
-  h1 span { color: ${THEME.accent}; }
-  p { margin: 26px 0 0; font-size: 26px; line-height: 1.6; color: ${THEME.dim}; max-width: 900px; }
+  .eyebrow { display: flex; justify-content: space-between; font-size: 22px; color: ${THEME.dim}; }
+  h1 { margin: 0; font: 400 ${headingSize(card)}px / 1.04 'Old Standard TT', serif; letter-spacing: -0.02em; }
+  h1 span { font-style: italic; color: ${THEME.accent}; }
+  p { margin: 26px 0 0; font-size: 26px; line-height: 1.5; color: ${THEME.dim}; max-width: 900px; }
   footer {
-    display: flex; align-items: center; justify-content: space-between;
-    padding-top: 30px; border-top: 1px solid ${THEME.border};
-    font: 20px 'JetBrains Mono', monospace; color: ${THEME.dim};
+    display: flex; align-items: baseline; justify-content: space-between;
+    padding-top: 26px; border-top: 1px solid ${THEME.border};
+    font-size: 22px; color: ${THEME.dim};
   }
-  .cursor { display: inline-block; width: 11px; height: 22px; margin-left: 10px; vertical-align: -3px; background: ${THEME.accent}; }
+  .mark { font: 400 44px / 1 'Old Standard TT', serif; color: ${THEME.fg}; }
+  .mark i { font-style: normal; color: ${THEME.accent}; }
 </style>
-<div class="eyebrow"><i class="dot"></i>${escapeHtml(card.eyebrow)}<span class="path">${escapeHtml(card.path)}</span></div>
+<div class="eyebrow"><span>${escapeHtml(card.eyebrow)}</span><span>${escapeHtml(card.path)}</span></div>
 <div>
   <h1>${escapeHtml(card.heading)}<br /><span>${escapeHtml(card.accent)}</span></h1>
   <p>${escapeHtml(card.line)}</p>
 </div>
-<footer><span>${DEFAULT_SITE_HOST}</span><span>hamed@${DEFAULT_SITE_HOST}:~$<i class="cursor"></i></span></footer>`;
+<footer><span>${DEFAULT_SITE_HOST}</span><span class="mark">h<i>.</i></span></footer>`;
+}
+
+async function readFont(file: string): Promise<string> {
+  return (await readFile(file)).toString('base64');
 }
 
 async function main(): Promise<void> {
@@ -157,14 +161,14 @@ async function main(): Promise<void> {
     await readJson('content/profile.json'),
     'content/profile.json',
   );
-  const font = (await readFile(FONT)).toString('base64');
+  const fonts = { normal: await readFont(FONTS.normal), italic: await readFont(FONTS.italic) };
   const browser = await chromium.launch();
   const page = await browser.newPage({
     viewport: { width: WIDTH, height: HEIGHT },
     deviceScaleFactor: 1,
   });
   for (const card of [...cards(profile), ...(await projectCards())]) {
-    await page.setContent(cardHtml(card, font));
+    await page.setContent(cardHtml(card, fonts));
     await page.evaluate(() => document.fonts.ready);
     await writeFile(card.file, await page.screenshot({ type: 'png' }));
     console.warn(`[og] wrote ${card.file}`);

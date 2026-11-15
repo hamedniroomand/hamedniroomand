@@ -1,6 +1,6 @@
 ---
 name: layerscope
-order: 3
+order: 1
 repo: hamedniroomand/nuxt-layerscope
 docs: https://layerscope.kitdev.space
 tagline: Layer boundary checks for Nuxt apps, auto-imports included.

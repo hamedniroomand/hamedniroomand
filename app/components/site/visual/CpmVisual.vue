@@ -1,7 +1,7 @@
 <template>
   <VisualFrame
     class="cpm-visual"
-    label="Customer Portfolio Management: exchanges, wallets, and brokers connected to one customer portfolio"
+    label="Customer Portfolio Management: exchanges, wallets, and brokers connected to one client portfolio"
     title="cpm / connections"
   >
     <div class="portfolio-map">
@@ -25,7 +25,7 @@
         class="portfolio-map__book"
         aria-hidden="true"
       >
-        <span class="portfolio-map__label">Customer portfolio</span>
+        <span class="portfolio-map__label">Client portfolio</span>
         <div class="portfolio-map__balance"><i /><i /><i /><i /><i /></div>
         <span class="portfolio-map__caption">One connected view</span>
       </div>

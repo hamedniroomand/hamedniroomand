@@ -42,7 +42,7 @@ test.describe('panel', () => {
     await expect(page.getByLabel('Terminal input')).toBeVisible();
     await page.getByRole('button', { name: '~/about.md' }).click();
     await expect(page.getByRole('log')).toContainText('bat ~/about.md');
-    await expect(page.getByRole('log')).toContainText('senior web developer based in Yerevan');
+    await expect(page.getByRole('log')).toContainText('senior frontend engineer based in Yerevan');
   });
 
   test('the header links to the site source on GitHub', async ({ page }) => {

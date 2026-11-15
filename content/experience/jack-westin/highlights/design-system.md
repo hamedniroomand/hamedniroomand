@@ -1,6 +1,6 @@
 ---
 title: Shared design-system and core-logic library
-order: 2
+order: 6
 ---
 
-Designed and built a shared design-system and core-logic library (Storybook, Vitest, 95%+ test coverage), published as versioned npm packages via GitHub Packages and consumed by four applications.
+Designed and built the shared design-system and core-logic library (Storybook, Vitest, 95%+ test coverage), published as versioned packages on a private npm registry (GitHub Packages) and used by four applications.

@@ -24,17 +24,15 @@
       ><ProjectVisual :slug="project.slug" />
     </NuxtLink>
     <div class="project-card__copy">
-      <div class="project-card__meta">
-        <span>{{ story.category }}</span>
-      </div>
+      <p class="project-card__meta">{{ story.category }}</p>
       <component
         :is="heading"
         class="project-card__title"
       >
-        <NuxtLink :to="path">{{ project.name }} <span aria-hidden="true">↗</span></NuxtLink>
+        <NuxtLink :to="path">{{ project.name }}</NuxtLink>
       </component>
       <p>{{ story.headline }}</p>
-      <span class="project-card__stack">{{ project.stack.slice(0, 2).join(' · ') }}</span>
+      <span class="project-card__stack">{{ project.stack.slice(0, 3).join(', ') }}</span>
     </div>
   </article>
 </template>

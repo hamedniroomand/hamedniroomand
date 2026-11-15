@@ -30,7 +30,7 @@
         aria-label="Hamed Niroomand — Home"
       >
         <BrandMark />
-        <span>hamed<span class="site-brand__domain"> / niroomand.dev</span></span>
+        <span>Hamed Niroomand</span>
       </NuxtLink>
       <nav
         aria-label="Main navigation"

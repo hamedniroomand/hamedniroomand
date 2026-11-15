@@ -1,8 +1,8 @@
 ---
 name: Cue
-order: 1
+order: 3
 repo: hamedniroomand/cue
-docs: https://hamedniroomand.github.io/cue
+docs: https://cue.kitdev.space/
 tagline: Drive headless coding agents through a GitHub-issue label pipeline.
 stack:
   - TypeScript

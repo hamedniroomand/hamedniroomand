@@ -25,6 +25,16 @@ describe('ProjectFrontmatter', () => {
     expect(ProjectFrontmatter.parse(value)).toEqual(value);
   });
 
+  it('accepts freelance client work', () => {
+    const value = { ...base, client: 'acme', freelance: true, site: 'https://acme.test' };
+    expect(ProjectFrontmatter.parse(value)).toEqual(value);
+  });
+
+  it('rejects a freelance project that has no client', () => {
+    const value = { ...base, repo: 'hamedniroomand/cue', freelance: true };
+    expect(() => ProjectFrontmatter.parse(value)).toThrow(/freelance project needs a client/);
+  });
+
   it('rejects a site-only project that is not client work', () => {
     expect(() => ProjectFrontmatter.parse({ ...base, site: 'https://x.test' })).toThrow(
       /client or a public repo/,

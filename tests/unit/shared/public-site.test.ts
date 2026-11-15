@@ -12,7 +12,7 @@ describe('projectStory', () => {
   it('tells the Jack Westin story as client work', () => {
     const story = projectStory({ slug: 'jack-westin', tagline: 'x' });
     expect(story.category).toBe('Client work / EdTech');
-    expect(story.headline).toBe('Study tools behind 500K+ student accounts.');
+    expect(story.headline).toBe('Study tools behind 500K+ registered accounts.');
     expect(story.sections.map(section => section.title)).toEqual([
       'Practice that feels like the real test',
       'An AI tutor inside the product',

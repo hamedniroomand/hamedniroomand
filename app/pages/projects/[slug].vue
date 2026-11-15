@@ -6,7 +6,7 @@
   const route = useRoute();
   const project = useCv().projects.find(entry => entry.slug === String(route.params.slug));
   if (!project) {
-    throw createError({ statusCode: 404, statusMessage: 'Project not found', fatal: true });
+    throw createError({ status: 404, statusText: 'Project not found', fatal: true });
   }
 
   const story = projectStory(project);
@@ -50,9 +50,9 @@
     <JsonWorkbench v-if="project.slug === 'kitdev'" />
     <div class="project-page__body">
       <aside>
-        <p class="eyebrow">BUILT WITH</p>
+        <p class="eyebrow">Built with</p>
         <StackTags :items="project.stack" />
-        <p class="eyebrow project-page__type">SOURCE</p>
+        <p class="eyebrow project-page__type">Source</p>
         <p>{{ projectSourceLabel(project) }}</p>
         <PathLabel
           :path="path"

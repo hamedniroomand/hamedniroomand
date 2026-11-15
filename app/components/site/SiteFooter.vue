@@ -15,13 +15,13 @@
 
 <template>
   <footer class="site-footer">
-    <div>
+    <div class="site-footer__about">
       <NuxtLink
         to="/"
         class="footer-name"
         ><BrandMark />Hamed Niroomand</NuxtLink
       >
-      <p>A small corner of the internet, made by hand.</p>
+      <p>Drawn, built and measured in Yerevan.</p>
     </div>
     <div class="footer-links">
       <NuxtLink
@@ -30,8 +30,14 @@
         :to="item.to"
         :target="item.external ? '_blank' : undefined"
         :rel="item.external ? 'noopener' : undefined"
-        >{{ item.label }}{{ item.external ? ' ↗' : '' }}</NuxtLink
+        >{{ item.label }}</NuxtLink
       >
     </div>
+    <p
+      class="footer-ghost"
+      aria-hidden="true"
+    >
+      Hamed Niroomand.
+    </p>
   </footer>
 </template>

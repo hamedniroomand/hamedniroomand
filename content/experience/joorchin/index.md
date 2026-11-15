@@ -16,4 +16,4 @@ summary: >-
 order: 4
 ---
 
-Frontend development for a digital marketing agency in Iran. Translated Figma designs into responsive Vue and WordPress front-ends for client web builds.
+Frontend development for a digital marketing agency in Iran. Translated Figma designs into responsive, cross-browser Vue and WordPress front-ends for client sites.

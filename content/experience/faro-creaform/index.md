@@ -18,4 +18,4 @@ summary: >-
 order: 3
 ---
 
-Part-time remote full-stack engineering for FARO Creaform in Germany, concurrent with Joorchin. Built Node.js / TypeScript / Express REST services and Vue / Vuetify admin dashboards with full test coverage under enterprise codebase standards.
+Part-time remote software engineering for FARO Creaform in Germany, concurrent with Joorchin. Built Node.js / TypeScript / Express REST services and Vue / Vuetify admin dashboards with full test coverage under enterprise codebase standards.

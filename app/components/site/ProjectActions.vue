@@ -18,7 +18,7 @@
       rel="noopener"
     >
       <GithubIcon v-if="action.kind === 'repo'" />
-      {{ action.label }} <span aria-hidden="true">↗</span>
+      {{ action.label }}
     </a>
   </div>
 </template>
