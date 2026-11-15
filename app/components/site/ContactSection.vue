@@ -129,7 +129,7 @@
           autocomplete="off"
           aria-hidden="true"
         />
-        <TurnstileWidget
+        <LazyTurnstileWidget
           v-if="siteKey && started"
           ref="widget"
           v-model="form.turnstileToken"

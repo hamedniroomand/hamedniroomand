@@ -76,7 +76,7 @@
           class="modal__row"
         >
           <span aria-hidden="true" />
-          <TurnstileWidget
+          <LazyTurnstileWidget
             ref="widget"
             v-model="form.turnstileToken"
             :site-key="siteKey"

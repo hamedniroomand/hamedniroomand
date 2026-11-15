@@ -1,7 +1,13 @@
 import type { ContactFieldErrors } from '#shared/schemas/contact';
-import { contactFailureFeedback, contactFieldErrors } from '#shared/schemas/contact';
 
 type ContactState = 'idle' | 'sending' | 'sent' | 'error';
+
+const CHECK_LOAD_FAILURE = 'Could not check the message. Try again, or use email instead.';
+
+/** The schema brings its validation library, so it loads when a visitor sends a message. */
+function loadSchema() {
+  return import('#shared/schemas/contact');
+}
 
 export function useContactForm() {
   const form = reactive({ name: '', email: '', message: '', website: '', turnstileToken: '' });
@@ -9,27 +15,28 @@ export function useContactForm() {
   const error = ref('');
   const errors = ref<ContactFieldErrors>({});
 
-  function validate(): boolean {
-    errors.value = contactFieldErrors(form);
-    if (Object.keys(errors.value).length === 0) return true;
+  function fail(message: string, fieldErrors: ContactFieldErrors): false {
     state.value = 'error';
+    error.value = message;
+    errors.value = fieldErrors;
     return false;
   }
 
   async function submit(): Promise<boolean> {
     error.value = '';
-    if (!validate()) return false;
+    const schema = await loadSchema().catch(() => null);
+    if (!schema) return fail(CHECK_LOAD_FAILURE, {});
+    const fieldErrors = schema.contactFieldErrors(form);
+    if (Object.keys(fieldErrors).length > 0) return fail('', fieldErrors);
+    errors.value = {};
     state.value = 'sending';
     try {
       await $fetch('/api/contact', { method: 'POST', body: form });
       state.value = 'sent';
       return true;
     } catch (err) {
-      state.value = 'error';
-      const feedback = contactFailureFeedback((err as { data?: unknown }).data);
-      errors.value = feedback.errors;
-      error.value = feedback.message;
-      return false;
+      const feedback = schema.contactFailureFeedback((err as { data?: unknown }).data);
+      return fail(feedback.message, feedback.errors);
     }
   }
 
